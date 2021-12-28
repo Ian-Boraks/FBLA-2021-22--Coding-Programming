@@ -5,19 +5,34 @@ html {
 	width: 100vw;
 	font-size: 10px; /* Now 1rem will always be 10px */
 
-    overflow-x: hidden;
+	overflow-x: hidden;
 }
 
+section {
+	height: fit-content;
+	width: fit-content;
+}
 body {
+	height: calc(100% - 4rem); 
+	margin: 2rem 0rem 2rem 0rem;
+
 	font-size: 1.5rem;
-	margin: 0;
-    color: var(--text-color-dark);
-    background-color: var(--background-color-light);
-    word-wrap: break-word;
+
+	color: var(--text-color-dark);
+	background-color: var(--background-color-dark);
+	word-wrap: break-word;
 }
 
 #master {
+	position: relative;
 	height: 100%;
 	width: 100%;
-	margin: 2rem 0rem 2rem 0rem;
+}
+
+#map {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	color: var(--text-color-light);
+	z-index: 1;
 }
