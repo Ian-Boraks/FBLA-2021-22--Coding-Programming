@@ -1,0 +1,39 @@
+<section id="header">
+    <div style="z-index: 999; position: fixed;">
+        <style scoped>
+            .header {
+                font-family: "Lucida Console";
+                font-size: 1rem;
+
+                height: 2rem;
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background-color: var(--background-color-light);
+                text-align: center;
+            }
+
+            .header::after {
+                /* create a full-height inline block pseudo-element */
+                content: "";
+                display: inline-block;
+                vertical-align: middle;
+                /* vertical alignment of the inline element */
+                height: 100%;
+            }
+
+            .header .content {
+                display: inline-block;
+                vertical-align: middle;
+                /* vertical alignment of the inline element */
+            }
+        </style>
+        <div class="header">
+            <div class="content">
+                <a href="javascript:void(0);" onclick="location.href='/index.html';">Home</a> |
+                <a href="javascript:void(0);" onclick="history.back()">Back</a>
+            </div>
+        </div>
+    </div>
+</section>

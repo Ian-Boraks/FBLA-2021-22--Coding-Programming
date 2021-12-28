@@ -1,0 +1,41 @@
+<section id="footer">
+    <div style="z-index: 999; position: fixed;">
+        <style scoped>
+            .footer {
+                font-family: "Lucida Console";
+                font-size: 1rem;
+
+                height: 2rem;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: var(--background-color-light);
+                text-align: center;
+            }
+
+            .footer::before {
+                /* create a full-height inline block pseudo-element */
+                content: "";
+                display: inline-block;
+                vertical-align: middle;
+                /* vertical alignment of the inline element */
+                height: 100%;
+            }
+
+            .footer .content {
+                display: inline-block;
+                vertical-align: middle;
+                /* vertical alignment of the inline element */
+            }
+        </style>
+        <div class="footer">
+            <div class="content">
+                &copy; Copyright 2021, ______ |
+                <a href=" " target="_blank"> ______ </a> |
+                <a href=" " target="_blank"> ______ </a> |
+                <a href=" " target="_blank"> ______ </a>
+            </div>
+        </div>
+    </div>
+</section>
