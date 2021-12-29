@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="stylesheet" href="/assets/css/styles.css?v=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="module" src="/assets/js/mapsAPI.js"></script>
     <script src="assets/js/csi/csi.min.js"></script>
     <!-- <div data-include="<include-me.html>"></div> -->
@@ -19,7 +20,9 @@
     <div data-include="assets/html/navigation_menu.html"></div>
     <div id="master">
         <div id="map"></div>
-        <div id="places"></div>
+        <div id="current-markers">
+          <ul id="results-list"></ul>
+        </div>
     </div>
     <div data-include="assets/html/footer.html"></div>
     <script src="assets/js/index.js"></script>
