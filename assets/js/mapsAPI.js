@@ -118,13 +118,12 @@ function createMarkers(places) {
     // Zoom in on the marker when it is clicked.
     google.maps.event.addListener(marker, 'click', function () {
       if (!zoomedIn) {
+        zoomedIn = true;
         var ogZoom = map.getZoom();
         var ogCenter = map.getCenter();
 
         map.panTo(this.getPosition());
-        map.setZoom(17);
-        
-        zoomedIn = true;
+        window.setTimeout(() => { map.setZoom(17); }, 200);
 
         window.setTimeout(() => {
           map.setZoom(ogZoom);
