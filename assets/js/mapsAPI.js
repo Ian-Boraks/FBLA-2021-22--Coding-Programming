@@ -3,6 +3,7 @@ let infowindow;
 let places;
 let initialLocation;
 
+var zoomedIn = false;
 var current_marker;
 var bounds;
 var markers = [];
@@ -25,7 +26,9 @@ function find(latLng, types, radius) {
 window.initMap = function (types = ["food", "bar"], radius = 10000) {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
-    center: { lat: 0, lng: 0 }
+    center: { lat: 0, lng: 0 },
+    zoomDelta: 0.25,
+    zoomSnap: 0
   });
 
   if (navigator.geolocation) {
@@ -73,7 +76,10 @@ window.initMap = function (types = ["food", "bar"], radius = 10000) {
             $('<li />')
               .attr('id', 'map-marker-' + i)
               .attr('class', 'depot-result')
-              .html(current_marker.title)
+              .html("<a href=\"javascript:void(0);\">" + current_marker.title + "</a>")
+              .click(function () {
+                document.querySelector("[title=\"" + this.textContent + "\"]").dispatchEvent(new Event("click"));
+              })
           );
         }
       }
@@ -111,14 +117,21 @@ function createMarkers(places) {
 
     // Zoom in on the marker when it is clicked.
     google.maps.event.addListener(marker, 'click', function () {
-      var ogZoom = map.getZoom();
-      var ogCenter = map.getCenter();
-      map.setZoom(ogZoom + 2);
-      map.panTo(this.getPosition());
-      window.setTimeout(() => {
-        map.setZoom(ogZoom);
-        map.panTo(ogCenter);
-      }, 3000);
+      if (!zoomedIn) {
+        var ogZoom = map.getZoom();
+        var ogCenter = map.getCenter();
+
+        map.panTo(this.getPosition());
+        map.setZoom(17);
+        
+        zoomedIn = true;
+
+        window.setTimeout(() => {
+          map.setZoom(ogZoom);
+          map.panTo(ogCenter);
+          zoomedIn = false;
+        }, 3000);
+      };
     });
 
     bounds.extend(place.geometry.location);

@@ -6,6 +6,7 @@ html {
 	font-size: 10px; /* Now 1rem will always be 10px */
 
 	overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 section {
@@ -13,7 +14,7 @@ section {
 	width: fit-content;
 }
 body {
-	height: calc(100% - 4rem); 
+	height: calc(100% - 4rem);
 	margin: 2rem 0rem 2rem 0rem;
 
 	font-size: 1.5rem;
@@ -35,4 +36,26 @@ body {
 	height: 100%;
 	color: var(--text-color-light);
 	z-index: 1;
+}
+
+#current-markers {
+  color: var(--text-color-dark);
+  background-color: var(--background-color-light);
+  border-radius: 2rem;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+
+	position: fixed;
+	bottom: 2rem;
+	left: 0;
+	width: fit-content;
+	max-height: 18rem;
+  padding: 2rem;
+  margin: 15px 15px;
+	z-index: 2;
+}
+
+#results-list {
+  padding-left: 1.25rem;
+  margin: 0;
 }
