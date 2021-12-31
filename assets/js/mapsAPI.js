@@ -3,13 +3,42 @@ let infowindow;
 let places;
 let initialLocation;
 
+var ogZoom;
+var ogCenter;
+
 var zoomedIn = false;
 var current_marker;
 var bounds;
 var markers = [];
+var typeArray = [];
 
+// This function is called when the page loads.
+$(function () {
+  document.getElementById("reset-zoom-button").onclick =
+    function () { resetMap(); }
+  // TODO: Have a function that loops through each of the types buttons and adds the onclick event to them. Or make them systematically with something similar to this:
+  // $('#results-list').append(
+  //   $('<li />')
+  //     .html("<a href=\"javascript:void(0);\">" + current_marker.title + "</a>")
+  //     .click(function () {
+  //       document.querySelector("[title=\"" + this.textContent + "\"]").dispatchEvent(new Event("click"));
+  //     })
+  // );
+});
+
+// * This is ran by each of the types buttons
+function addToTypes() {
+  typeArray.push(this.textContent);
+}
+
+// * This is to be ran by the update map button
+function updateMap() {
+  initMap();
+  typeArray.splice(0, typeArray.length);
+}
 
 function find(latLng, types, radius) {
+  // TODO: Make it so that the find() only works for a certain latLng range.
   var request = {
     types: types,
     location: latLng,
@@ -20,9 +49,7 @@ function find(latLng, types, radius) {
   places.nearbySearch(request, callback);
 }
 
-// This is the main function that is called when the page loads.
-// It is also called when ever the user changes the input of there search,
-// this might induce un wanted calls to the map load api but oh well :).
+// This is the main function that is called when the map loads. It is also called when ever the user changes the input of there search, this might induce un wanted calls to the map load api but oh well :).
 window.initMap = function (types = ["food", "bar"], radius = 10000) {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
@@ -50,41 +77,42 @@ window.initMap = function (types = ["food", "bar"], radius = 10000) {
 
   // Modified from: https://tommcfarlin.com/tag/google-maps-api/
   google.maps.event.addListener(map, 'idle', function () {
-    // Read the bounds of the map being displayed.
-    bounds = map.getBounds();
-    $('#results-list').empty();
+    // updateResultsList();
+  });
+}
 
-    // Iterate through all of the markers that are displayed on the *entire* map.
-    for (var i = 0, l = markers.length; i < l; i++) {
+function updateResultsList() {
+  // Read the bounds of the map being displayed.
+  bounds = map.getBounds();
+  $('#results-list').empty();
 
-      current_marker = markers[i];
+  // Iterate through all of the markers that are displayed on the *entire* map.
+  for (var i = 0, l = markers.length; i < l; i++) {
 
-      /* 
-       * If the current marker is visible within the bounds of the current map,
-       * let's add it as a list item to #nearby-results that's located above
-       * this script.
-       */
-      if (bounds.contains(current_marker.getPosition())) {
+    if (map.getZoom() < 15) {
+      zoomedIn = false;
+    }
 
-        /*
-         * Only add a list item if it doesn't already exist. This is so that				  				 
-         * if the browser is resized or the tablet or phone is rotated, we don't
-         * have multiple results.
-         */
-        if (0 === $('#map-marker-' + i).length) {
-          $('#results-list').append(
-            $('<li />')
-              .attr('id', 'map-marker-' + i)
-              .attr('class', 'depot-result')
-              .html("<a href=\"javascript:void(0);\">" + current_marker.title + "</a>")
-              .click(function () {
-                document.querySelector("[title=\"" + this.textContent + "\"]").dispatchEvent(new Event("click"));
-              })
-          );
-        }
+    current_marker = markers[i];
+
+    /* If the current marker is visible within the bounds of the current map, let's add it as a list item to #nearby-results that's located above this script. */
+    if (bounds.contains(current_marker.getPosition())) {
+
+      /* Only add a list item if it doesn't already exist. This is so that if the browser is resized or the tablet or phone is rotated, we don't have multiple results. */
+      if (0 === $('#map-marker-' + i).length) {
+        $('#results-list').append(
+          $('<li />')
+            .attr('id', 'map-marker-' + i)
+            .attr('class', 'depot-result')
+            .html("<a href=\"javascript:void(0);\">" + current_marker.title + "</a>")
+            .click(function () {
+              // This finds the div holding the marker image/data and clicks it.
+              document.querySelector("[title=\"" + this.textContent + "\"]").dispatchEvent(new Event("click"));
+            })
+        );
       }
     }
-  });
+  }
 }
 
 function callback(results, status, pagination) {
@@ -92,6 +120,13 @@ function callback(results, status, pagination) {
 
   createMarkers(results);
 };
+
+function resetMap() {
+  console.log("reset");
+  map.panTo(ogCenter);
+  map.setZoom(ogZoom);
+  zoomedIn = false;
+}
 
 function createMarkers(places) {
   var bounds = new google.maps.LatLngBounds();
@@ -119,17 +154,17 @@ function createMarkers(places) {
     google.maps.event.addListener(marker, 'click', function () {
       if (!zoomedIn) {
         zoomedIn = true;
-        var ogZoom = map.getZoom();
-        var ogCenter = map.getCenter();
+        var currentZoom = map.getZoom();
+        console.log(currentZoom);
 
         map.panTo(this.getPosition());
-        window.setTimeout(() => { map.setZoom(17); }, 200);
+        if (currentZoom < 19) {
+          window.setTimeout(() => { map.setZoom(17); }, 200);
+          window.setTimeout(() => { map.setZoom(18); }, 700);
+          window.setTimeout(() => { map.setZoom(19); }, 1000);
+        }
 
-        window.setTimeout(() => {
-          map.setZoom(ogZoom);
-          map.panTo(ogCenter);
-          zoomedIn = false;
-        }, 3000);
+        window.setTimeout(() => { zoomedIn = false; }, 3500);
       };
     });
 
@@ -138,4 +173,7 @@ function createMarkers(places) {
     markers.push(marker);
   }
   map.fitBounds(bounds);
+  ogZoom = map.getZoom();
+  ogCenter = map.getCenter();
+  updateResultsList();
 }
