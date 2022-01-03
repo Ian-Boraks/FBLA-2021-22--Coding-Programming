@@ -9,13 +9,15 @@ var ogCenter;
 var zoomedIn = false;
 var current_marker;
 var bounds;
-var markers = [];
+
+var markersFinal = [];
 var typeArray = [];
+var resultsFinal = [];
 
 // This function is called when the page loads.
 $(function () {
   document.getElementById("reset-zoom-button").onclick =
-    function () { resetMap(); }
+    function () { resetMapZoom(); }
   // TODO: Have a function that loops through each of the types buttons and adds the onclick event to them. Or make them systematically with something similar to this:
   // $('#results-list').append(
   //   $('<li />')
@@ -32,9 +34,27 @@ function addToTypes() {
 }
 
 // * This is to be ran by the update map button
-function updateMap() {
-  initMap();
-  typeArray.splice(0, typeArray.length);
+window.updateMap = function (types = typeArray) {
+  $('#results-list').empty();
+  deleteMarkers();
+  resetMapArrays();
+  find(initialLocation, types, 10000);
+}
+
+function resetMapArrays() {
+  markersFinal.splice(0, markersFinal.length);
+  resultsFinal.splice(0, resultsFinal.length);
+}
+function resetMapZoom() {
+  console.log("reset");
+  map.panTo(ogCenter);
+  map.setZoom(ogZoom);
+  zoomedIn = false;
+}
+function deleteMarkers() {
+  for (let i = 0; i < markersFinal.length; i++) {
+    markersFinal[i].setMap(null);
+  }
 }
 
 function find(latLng, types, radius) {
@@ -49,7 +69,7 @@ function find(latLng, types, radius) {
   places.nearbySearch(request, callback);
 }
 
-// This is the main function that is called when the map loads. It is also called when ever the user changes the input of there search, this might induce un wanted calls to the map load api but oh well :).
+// This is the main function that is called when the map loads
 window.initMap = function (types = ["food", "bar"], radius = 10000) {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
@@ -78,7 +98,13 @@ window.initMap = function (types = ["food", "bar"], radius = 10000) {
   // Modified from: https://tommcfarlin.com/tag/google-maps-api/
   google.maps.event.addListener(map, 'idle', function () {
     // updateResultsList();
+    if (map.getZoom() < 15) {
+      zoomedIn = false;
+    }
   });
+
+  // This resets the typeArray to an empty array.
+  typeArray.splice(0, typeArray.length);
 }
 
 function updateResultsList() {
@@ -87,13 +113,9 @@ function updateResultsList() {
   $('#results-list').empty();
 
   // Iterate through all of the markers that are displayed on the *entire* map.
-  for (var i = 0, l = markers.length; i < l; i++) {
+  for (var i = 0, l = markersFinal.length; i < l; i++) {
 
-    if (map.getZoom() < 15) {
-      zoomedIn = false;
-    }
-
-    current_marker = markers[i];
+    current_marker = markersFinal[i];
 
     /* If the current marker is visible within the bounds of the current map, let's add it as a list item to #nearby-results that's located above this script. */
     if (bounds.contains(current_marker.getPosition())) {
@@ -115,23 +137,34 @@ function updateResultsList() {
   }
 }
 
-function callback(results, status, pagination) {
-  if (status !== 'OK') return;
+function setBounds() {
+  var bounds = new google.maps.LatLngBounds();
 
-  createMarkers(results);
-};
-
-function resetMap() {
-  console.log("reset");
-  map.panTo(ogCenter);
-  map.setZoom(ogZoom);
-  zoomedIn = false;
+  for (var i = 0; i < markersFinal.length; i++) {
+    bounds.extend(markersFinal[i].getPosition());
+  }
+  map.fitBounds(bounds);
+  ogZoom = map.getZoom();
+  ogCenter = map.getCenter();
 }
 
-function createMarkers(places) {
-  var bounds = new google.maps.LatLngBounds();
-  markers.splice(0, markers.length);
+function callback(results, status, pagination) {
+  if (status !== 'OK') {
+    console.log(status);
+    return;
+  } else {
+    console.log(results);
+    createMarkers(results);
+    resultsFinal = resultsFinal.concat(results);
+    if (pagination && pagination.hasNextPage) {
+      // Note: nextPage will call the same handler function as the initial call
+      pagination.nextPage();
+    }
+    setBounds();
+  }
+};
 
+function createMarkers(places) {
   for (var i = 0, place; place = places[i]; i++) {
     // This sets what the image icon should be fore the marker
     var image = {
@@ -152,28 +185,18 @@ function createMarkers(places) {
 
     // Zoom in on the marker when it is clicked.
     google.maps.event.addListener(marker, 'click', function () {
+      var currentZoom = map.getZoom();
+      console.log(currentZoom);
+
+      map.panTo(this.getPosition());
       if (!zoomedIn) {
+        map.setZoom(18);
         zoomedIn = true;
-        var currentZoom = map.getZoom();
-        console.log(currentZoom);
-
-        map.panTo(this.getPosition());
-        if (currentZoom < 19) {
-          window.setTimeout(() => { map.setZoom(17); }, 200);
-          window.setTimeout(() => { map.setZoom(18); }, 700);
-          window.setTimeout(() => { map.setZoom(19); }, 1000);
-        }
-
         window.setTimeout(() => { zoomedIn = false; }, 3500);
       };
     });
 
-    bounds.extend(place.geometry.location);
-
-    markers.push(marker);
+    markersFinal.push(marker);
   }
-  map.fitBounds(bounds);
-  ogZoom = map.getZoom();
-  ogCenter = map.getCenter();
   updateResultsList();
 }

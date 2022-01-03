@@ -1,7 +1,7 @@
 var resultsCollapsed = false;
 
 $(function () {
-  document.getElementById("current-markers").onclick = function () { toggleResults(); }
+  document.getElementById("hide-results-button").onclick = function () { toggleResults(); }
 });
 
 function toggleResults() {
