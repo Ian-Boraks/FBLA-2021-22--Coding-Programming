@@ -1,9 +1,9 @@
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show")
+function toggleFunc(num) {
+  document.getElementById("myDropdown" + num).classList.toggle("show")
 }
 
 window.onclick = function (event) {
-  if (!event.target.matches(".dropbtn")) {
+  if (!event.target.matches(".dropbutton")) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {

@@ -4,17 +4,23 @@
       z-index: 1;
     }
 
-    .dropbtn {
-        background-color: black;
+    .dropbutton {
+        background-color: green;
         color: white;
-        padding: 16px
+        padding: 10px 20px;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 4px;
+        border: none;
+        transition-duration: 0.6s;
+        font-family: "Lucida Console";
       }
     
-    .dropbtn:hover, .dropbtn:focus {
-      background-color: bisque;
+    .dropbutton:hover, .dropbutton:focus {
+      background-color: rgba(0, 128, 0, 0.534);
     }
 
-    .dropdown {
+    .filter {
       position: relative;
       display: inline-block;
     }
@@ -22,11 +28,10 @@
     .dropdown-content {
       display: none;
       position: absolute;
+      text-align: center;
       background-color: white;
-      min-width: 160px;
+      min-width: 120px;
       overflow: auto;
-      box-shadow: 0px 8px 16px 0px
-      rgba(0,0,0,0.2);
       z-index: 1;
     }
     
@@ -37,7 +42,7 @@
       display: block;
     }
 
-    .dropdown a:hover {
+    .filter a:hover {
       background-color: #ddd;
     }
     
@@ -45,11 +50,15 @@
       display: block;
     }
 
+    .allfilters {
+      text-align: center;
+    }
+
   </style>
-  <div class="dropdown">
-    <button onclick="myFunction();" class="dropbtn">Min Rating ▼</button>
-    <div id="myDropdown" class="dropdown-content">
-      <a href="#any">Any Rating</a>
+  <div class="allfilters">
+  <div class="filter">
+    <button style="margin:10px;" onclick="toggleFunc(1);" class="dropbutton">MIN RATING</button>
+    <div id="myDropdown1" class="dropdown-content">
       <a href="#2star">2.0 ●●○○○</a>
       <a href="#2.5star">2.5 ●●◐○○</a>
       <a href="#3star">3.0 ●●●○○</a>
@@ -58,4 +67,49 @@
       <a href="#4.5star">4.5 ●●●●◐</a>
     </div>
   </div>
+
+  <div class="filter">
+    <button style="margin:10px;" onclick="toggleFunc(2);" class="dropbutton">DISTANCE</button>
+    <div id="myDropdown2" class="dropdown-content">
+      <a href="#5mile">5 Miles</a>
+      <a href="#10mile">10 Miles</a>
+      <a href="#15mile">15 Miles</a>
+      <a href="#20mile">20 Miles</a>
+      <a href="#25plusmile">25+ Miles</a>
+    </div>
+  </div>
+
+  <div class="filter">
+    <button style="margin:10px;" onclick="toggleFunc(3);" class="dropbutton">TYPE</button>
+    <div id="myDropdown3" class="dropdown-content">
+      <a href="#food">Food</a>
+      <a href="#outdoor">Outdoor</a>
+      <a href="#shopping">Shopping</a>
+      <a href="#kidfriendly">Kid-Friendly</a>
+      <a href="#spa">Spa</a>
+      <a href="#classicattr">Classic Attractions</a>
+    </div>
+  </div>
+
+  <div class="filter">
+    <button style="margin:10px;" onclick="toggleFunc(4);" class="dropbutton">PRICE</button>
+    <div id="myDropdown4" class="dropdown-content">
+      <a href="#free">Free</a>
+      <a href="#$">$</a>
+      <a href="#$$">$$</a>
+      <a href="#$$$">$$$</a>
+      <a href="#$$$$">$$$$</a>
+    </div>
+  </div>
+
+  <div class="filter">
+    <button style="margin:10px;" onclick="toggleFunc(5);" class="dropbutton">HOURS</button>
+    <div id="myDropdown5" class="dropdown-content">
+      <a href="#opennow">Open Now</a>
+      <a href="#open24">Open 24 hrs</a>
+      <a href="#openweekend">Open Weekends</a>
+      <a href="#openholiday">Open Holidays</a>
+    </div>
+  </div>
+</div>
 </div>
