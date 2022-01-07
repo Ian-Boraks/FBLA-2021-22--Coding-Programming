@@ -5,19 +5,29 @@
     }
 
     .dropbutton {
-        background-color: green;
-        color: white;
-        padding: 10px 20px;
-        font-size: 12px;
-        font-weight: bold;
-        border-radius: 4px;
-        border: none;
-        transition-duration: 0.6s;
-        font-family: "Lucida Console";
-      }
-    
-    .dropbutton:hover, .dropbutton:focus {
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 4px;
+      border: none;
+      transition-duration: 0.6s;
+      font-family: "Lucida Console";
+
+      min-width: 120px;
+    }
+    .dropbutton.updatebutton {
+      background-color: var(--accent-color-light);
+    }
+
+    .dropbutton:hover,
+    .dropbutton:focus {
       background-color: rgba(0, 128, 0, 0.534);
+    }
+    .dropbutton.updatebutton:hover,
+    .dropbutton.updatebutton:focus {
+      background-color: var(--accent-color-dark);
     }
 
     .filter {
@@ -33,19 +43,23 @@
       min-width: 120px;
       overflow: auto;
       z-index: 1;
+
+      margin-left: 50%;
+      transform: translateX(-50%);
     }
-    
+
     .dropdown-content a {
       color: black;
       padding: 12px 16px;
       text-decoration: none;
       display: block;
+
     }
 
     .filter a:hover {
       background-color: #ddd;
     }
-    
+
     .show {
       display: block;
     }
@@ -53,63 +67,74 @@
     .allfilters {
       text-align: center;
     }
-
   </style>
   <div class="allfilters">
-  <div class="filter">
-    <button style="margin:10px;" onclick="toggleFunc(1);" class="dropbutton">MIN RATING</button>
-    <div id="myDropdown1" class="dropdown-content">
-      <a href="#2star">2.0 ●●○○○</a>
-      <a href="#2.5star">2.5 ●●◐○○</a>
-      <a href="#3star">3.0 ●●●○○</a>
-      <a href="#3.5star">2.5 ●●●◐○</a>
-      <a href="#4star">4.0 ●●●●○</a>
-      <a href="#4.5star">4.5 ●●●●◐</a>
+    <div class="filter">
+      <button style="margin:10px;" onclick="toggleFunc(1);" class="dropbutton">MIN RATING</button>
+      <div id="myDropdown1" class="dropdown-content">
+        <a href="#2star">2.0 ●●○○○</a>
+        <a href="#2.5star">2.5 ●●◐○○</a>
+        <a href="#3star">3.0 ●●●○○</a>
+        <a href="#3.5star">2.5 ●●●◐○</a>
+        <a href="#4star">4.0 ●●●●○</a>
+        <a href="#4.5star">4.5 ●●●●◐</a>
+      </div>
     </div>
-  </div>
 
-  <div class="filter">
-    <button style="margin:10px;" onclick="toggleFunc(2);" class="dropbutton">DISTANCE</button>
-    <div id="myDropdown2" class="dropdown-content">
-      <a href="#5mile">5 Miles</a>
-      <a href="#10mile">10 Miles</a>
-      <a href="#15mile">15 Miles</a>
-      <a href="#20mile">20 Miles</a>
-      <a href="#25plusmile">25+ Miles</a>
+    <div class="filter">
+      <button style="margin:10px;" onclick="toggleFunc(2);" class="dropbutton">DISTANCE</button>
+      <div id="myDropdown2" class="dropdown-content">
+        <a href="#5mile">5 Miles</a>
+        <a href="#10mile">10 Miles</a>
+        <a href="#15mile">15 Miles</a>
+        <a href="#20mile">20 Miles</a>
+        <a href="#25plusmile">25+ Miles</a>
+      </div>
     </div>
-  </div>
 
-  <div class="filter">
-    <button style="margin:10px;" onclick="toggleFunc(3);" class="dropbutton">TYPE</button>
-    <div id="myDropdown3" class="dropdown-content">
-      <a href="#food">Food</a>
-      <a href="#outdoor">Outdoor</a>
-      <a href="#shopping">Shopping</a>
-      <a href="#kidfriendly">Kid-Friendly</a>
-      <a href="#spa">Spa</a>
-      <a href="#classicattr">Classic Attractions</a>
-    </div>
-  </div>
+    <div class="filter">
+      <button style="margin:10px;" onclick="toggleFunc(3);" class="dropbutton">TYPE</button>
+      <div id="myDropdown3" class="dropdown-content">
+        <!-- TODO: Make each of these words reference a certain set of types -->
+        
+        <a href="#food">Food</a>
+        <a href="#outdoor">Outdoor</a>
+        <a href="#shopping">Shopping</a>
 
-  <div class="filter">
-    <button style="margin:10px;" onclick="toggleFunc(4);" class="dropbutton">PRICE</button>
-    <div id="myDropdown4" class="dropdown-content">
-      <a href="#free">Free</a>
-      <a href="#$">$</a>
-      <a href="#$$">$$</a>
-      <a href="#$$$">$$$</a>
-      <a href="#$$$$">$$$$</a>
-    </div>
-  </div>
+        <!-- ! I do not think this will be possible -->
+        <a href="#kidfriendly">Kid-Friendly</a>
 
-  <div class="filter">
-    <button style="margin:10px;" onclick="toggleFunc(5);" class="dropbutton">HOURS</button>
-    <div id="myDropdown5" class="dropdown-content">
-      <a href="#opennow">Open Now</a>
-      <a href="#open24">Open 24 hrs</a>
-      <a href="#openweekend">Open Weekends</a>
-      <a href="#openholiday">Open Holidays</a>
+        <!-- ! This might be a little too narrow of a search term -->
+        <a href="#spa">Spa</a>
+
+        <a href="#classicattr">Classic Attractions</a>
+      </div>
+    </div>
+
+    <div class="filter">
+      <button style="margin:10px;" onclick="toggleFunc(4);" class="dropbutton">PRICE</button>
+      <div id="myDropdown4" class="dropdown-content">
+        <a href="#free">Free</a>
+        <a href="#$">$</a>
+        <a href="#$$">$$</a>
+        <a href="#$$$">$$$</a>
+        <a href="#$$$$">$$$$</a>
+      </div>
+    </div>
+
+    <div class="filter">
+      <button style="margin:10px;" onclick="toggleFunc(5);" class="dropbutton">HOURS</button>
+      <div id="myDropdown5" class="dropdown-content">
+        <a href="#opennow">Open Now</a>
+        <a href="#open24">Open 24 hrs</a>
+        <a href="#openweekend">Open Weekends</a>
+        <a href="#openholiday">Open Holidays</a>
+      </div>
+    </div>
+
+    <div class="filter">
+      <!-- TODO: Make this work :) -->
+      <button style="margin:10px;" onclick="toggleFunc(0)" class="dropbutton updatebutton">UPDATE</button>
     </div>
   </div>
-</div>
 </div>
