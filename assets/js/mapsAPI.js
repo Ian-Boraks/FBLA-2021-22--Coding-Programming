@@ -28,17 +28,25 @@ $(function () {
   // );
 });
 
-// * This is ran by each of the types buttons
-function addToTypes() {
-  typeArray.push(this.textContent);
+// * This is to be ran by each of the selections in the dropdown menu for types
+function toggleTypes() {
+  if (this.classList.contains('activeType')) {
+    this.classList.remove('activeType');
+    var index = typeArray.indexOf(this.textContent);
+    typeArray.splice(index, 1);
+  } else {
+    this.classList.add('activeType');
+    typeArray.push(this.textContent);
+  }
 }
 
+
 // * This is to be ran by the update map button
-window.updateMap = function (types = typeArray) {
+window.updateMap = function (types = typeArray, radius = 10000) {
   $('#results-list').empty();
   deleteMarkers();
   resetMapArrays();
-  find(initialLocation, types, 10000);
+  find(initialLocation, types, radius);
 }
 
 function resetMapArrays() {
