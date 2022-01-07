@@ -1,5 +1,9 @@
 <div id="navigation-menu">
   <style scoped>
+    #navigation-menu {
+      z-index: 1;
+    }
+
     .dropbtn {
         background-color: black;
         color: white;
@@ -43,7 +47,7 @@
 
   </style>
   <div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Min Rating ▼</button>
+    <button onclick="myFunction();" class="dropbtn">Min Rating ▼</button>
     <div id="myDropdown" class="dropdown-content">
       <a href="#any">Any Rating</a>
       <a href="#2star">2.0 ●●○○○</a>
@@ -54,23 +58,4 @@
       <a href="#4.5star">4.5 ●●●●◐</a>
     </div>
   </div>
-
-  <script>
-    function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show")
-    }
-
-    window.onclick = function(event) {
-      if (!event.target.matches(".dropbtn")) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')){
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-  </script>
 </div>
