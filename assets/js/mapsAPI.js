@@ -169,6 +169,7 @@ function setBounds() {
 function callback(results, status, pagination) {
   if (status !== 'OK') {
     console.log(status);
+    alert('Status: ' + status + '\nPlease try a different search.');
     return;
   } else {
     if (minRating > 0) {

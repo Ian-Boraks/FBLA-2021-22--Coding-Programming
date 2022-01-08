@@ -40,6 +40,12 @@ body {
 }
 
 #map {
+  /* This file is made available under the Creative Commons CC0 1.0 Universal Public Domain Dedication */
+  /* Khayri R.R. Woulfe, CC0, via Wikimedia Commons */
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/28/404UnicornNotFound.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  
 	position: relative;
 	width: 100%;
 	/* ! This needs to be changed with the #menu height.
