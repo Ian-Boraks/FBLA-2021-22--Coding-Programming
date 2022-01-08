@@ -3,50 +3,40 @@ let infowindow;
 let places;
 let initialLocation;
 
-var ogZoom;
-var ogCenter;
+let ogZoom;
+let ogCenter;
+let current_marker;
+let bounds;
 
-var zoomedIn = false;
-var current_marker;
-var bounds;
+let minRating = 0;
 
-var markersFinal = [];
-var typeArray = [];
-var resultsFinal = [];
+let zoomedIn = false;
+
+let markersFinal = [];
+let typeArray = [];
+let resultsFinal = [];
 
 // This function is called when the page loads.
 $(function () {
   document.getElementById("reset-zoom-button").onclick =
     function () { resetMapZoom(); }
-  // TODO: Have a function that loops through each of the types buttons and adds the onclick event to them. Or make them systematically with something similar to this:
-  // $('#results-list').append(
-  //   $('<li />')
-  //     .html("<a href=\"javascript:void(0);\">" + current_marker.title + "</a>")
-  //     .click(function () {
-  //       document.querySelector("[title=\"" + this.textContent + "\"]").dispatchEvent(new Event("click"));
-  //     })
-  // );
 });
 
-// * This is to be ran by each of the selections in the dropdown menu for types
-function toggleTypes() {
-  if (this.classList.contains('activeType')) {
-    this.classList.remove('activeType');
-    var index = typeArray.indexOf(this.textContent);
-    typeArray.splice(index, 1);
-  } else {
-    this.classList.add('activeType');
-    typeArray.push(this.textContent);
-  }
-}
-
-
 // * This is to be ran by the update map button
-window.updateMap = function (types = typeArray, radius = 10000) {
+window.updateMap = function (
+  types = typeArray,
+  keyword = "",
+  radius = 10000,
+  maxPrice = 4,
+  ratingMin = 0,
+  isOpen = null) {
+  console.log(types, keyword, radius, maxPrice, ratingMin, isOpen);
+  // This is setting the global variable to the value of the local variable.
+  minRating = ratingMin;
   $('#results-list').empty();
   deleteMarkers();
   resetMapArrays();
-  find(initialLocation, types, radius);
+  find(initialLocation, types, keyword, radius, maxPrice, isOpen);
 }
 
 function resetMapArrays() {
@@ -65,20 +55,31 @@ function deleteMarkers() {
   }
 }
 
-function find(latLng, types, radius) {
+function find(
+  latLng,
+  types = ['restaurant'],
+  keyword = "",
+  radius = 10000,
+  maxPrice = 4,
+  isOpen = null) {
   // TODO: Make it so that the find() only works for a certain latLng range.
   var request = {
     types: types,
+    keyword: keyword,
     location: latLng,
     radius: radius, // This is in meters
+    maxPrice: maxPrice,
   };
+  if (isOpen) {
+    request['opennow'] = isOpen;
+  }
   infowindow = new google.maps.InfoWindow();
   places = new google.maps.places.PlacesService(map);
   places.nearbySearch(request, callback);
 }
 
 // This is the main function that is called when the map loads
-window.initMap = function (types = ["food", "bar"], radius = 10000) {
+window.initMap = function () {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: { lat: 0, lng: 0 },
@@ -97,7 +98,7 @@ window.initMap = function (types = ["food", "bar"], radius = 10000) {
         map: map,
         title: 'Your Location'
       });
-      find(marker.getPosition(), types, radius);
+      // find(marker.getPosition());
     }, function (error) {
       console.log(error)
     });
@@ -121,7 +122,7 @@ function updateResultsList() {
   $('#results-list').empty();
 
   // Iterate through all of the markers that are displayed on the *entire* map.
-  for (var i = 0, l = markersFinal.length; i < l; i++) {
+  for (let i = 0, l = markersFinal.length; i < l; i++) {
 
     current_marker = markersFinal[i];
 
@@ -146,9 +147,9 @@ function updateResultsList() {
 }
 
 function setBounds() {
-  var bounds = new google.maps.LatLngBounds();
+  let bounds = new google.maps.LatLngBounds();
 
-  for (var i = 0; i < markersFinal.length; i++) {
+  for (let i = 0; i < markersFinal.length; i++) {
     bounds.extend(markersFinal[i].getPosition());
   }
   map.fitBounds(bounds);
@@ -161,6 +162,11 @@ function callback(results, status, pagination) {
     console.log(status);
     return;
   } else {
+    if (minRating > 0) {
+      results = results.filter(function (el) {
+        return el.rating >= minRating;
+      });
+    }
     console.log(results);
     createMarkers(results);
     resultsFinal = resultsFinal.concat(results);
@@ -173,7 +179,7 @@ function callback(results, status, pagination) {
 };
 
 function createMarkers(places) {
-  for (var i = 0, place; place = places[i]; i++) {
+  for (let i = 0, place; place = places[i]; i++) {
     // This sets what the image icon should be fore the marker
     var image = {
       url: place.icon,
@@ -184,7 +190,7 @@ function createMarkers(places) {
     };
 
     // This makes the actual marker object
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       map: map,
       icon: image,
       title: place.name,
@@ -193,7 +199,7 @@ function createMarkers(places) {
 
     // Zoom in on the marker when it is clicked.
     google.maps.event.addListener(marker, 'click', function () {
-      var currentZoom = map.getZoom();
+      let currentZoom = map.getZoom();
       console.log(currentZoom);
 
       map.panTo(this.getPosition());

@@ -17,6 +17,7 @@
 
       min-width: 120px;
     }
+
     .dropbutton.updatebutton {
       background-color: var(--accent-color-light);
     }
@@ -25,6 +26,7 @@
     .dropbutton:focus {
       background-color: rgba(0, 128, 0, 0.534);
     }
+
     .dropbutton.updatebutton:hover,
     .dropbutton.updatebutton:focus {
       background-color: var(--accent-color-dark);
@@ -72,69 +74,92 @@
     <div class="filter">
       <button style="margin:10px;" onclick="toggleFunc(1);" class="dropbutton">MIN RATING</button>
       <div id="myDropdown1" class="dropdown-content">
-        <a href="#2star">2.0 ●●○○○</a>
-        <a href="#2.5star">2.5 ●●◐○○</a>
-        <a href="#3star">3.0 ●●●○○</a>
-        <a href="#3.5star">2.5 ●●●◐○</a>
-        <a href="#4star">4.0 ●●●●○</a>
-        <a href="#4.5star">4.5 ●●●●◐</a>
+        <a href="#all" onclick="updateNavigation('ratingMin', 0)">All</a>
+        <a href="#2star" onclick="updateNavigation('ratingMin', 2)">2.0 ●●○○○</a>
+        <a href="#2.5star" onclick="updateNavigation('ratingMin', 2.5)">2.5 ●●◐○○</a>
+        <a href="#3star" onclick="updateNavigation('ratingMin', 3)">3.0 ●●●○○</a>
+        <a href="#3.5star" onclick="updateNavigation('ratingMin', 3.5)">3.5 ●●●◐○</a>
+        <a href="#4star" onclick="updateNavigation('ratingMin', 4)">4.0 ●●●●○</a>
+        <a href="#4.5star" onclick="updateNavigation('ratingMin', 4.5)">4.5 ●●●●◐</a>
       </div>
     </div>
 
     <div class="filter">
       <button style="margin:10px;" onclick="toggleFunc(2);" class="dropbutton">DISTANCE</button>
       <div id="myDropdown2" class="dropdown-content">
-        <a href="#5mile">5 Miles</a>
-        <a href="#10mile">10 Miles</a>
-        <a href="#15mile">15 Miles</a>
-        <a href="#20mile">20 Miles</a>
-        <a href="#25plusmile">25+ Miles</a>
+        <a href="#5mile" onclick="updateNavigation('radius', 8000)">5 Miles</a>
+        <a href="#10mile" onclick="updateNavigation('radius', 16000)">10 Miles</a>
+        <a href="#15mile" onclick="updateNavigation('radius', 42000)">15 Miles</a>
+        <a href="#20mile" onclick="updateNavigation('radius', 50000)">20 Miles</a>
       </div>
     </div>
 
     <div class="filter">
       <button style="margin:10px;" onclick="toggleFunc(3);" class="dropbutton">TYPE</button>
       <div id="myDropdown3" class="dropdown-content">
-        <!-- TODO: Make each of these words reference a certain set of types -->
-        <!-- * https://developers.google.com/maps/documentation/places/web-service/supported_types -->
-
-        <a href="#food">Food</a>
-        <a href="#outdoor">Outdoor</a>
-        <a href="#shopping">Shopping</a>
-
-        <!-- ! I do not think this will be possible -->
-        <a href="#kidfriendly">Kid-Friendly</a>
-
-        <!-- ! This might be a little too narrow of a search term -->
-        <a href="#spa">Spa</a>
-
-        <a href="#classicattr">Classic Attractions</a>
+        <a href="#food" onclick="
+          updateNavigation('typeArray', ['restaurant']);
+          updateNavigation('keyword', '');">
+          Food
+        </a>
+        <a href="#outdoor" onclick="
+          updateNavigation('typeArray', ['park']);
+          updateNavigation('keyword', '');">
+          Outdoor
+        </a>
+        <a href="#shopping" onclick="
+          updateNavigation('typeArray', []);
+          updateNavigation('keyword', 'shopping');">
+          Shopping
+        </a>
+        <a href="#kidfriendly" onclick="
+          updateNavigation('typeArray', []);
+          updateNavigation('keyword', 'kid friendly attraction');">
+          Kid-Friendly
+        </a>
+        <a href="#spa" onclick="
+          updateNavigation('typeArray', ['spa']);
+          updateNavigation('keyword', '');">
+          Spa
+        </a>
+        <a href="#classicattr" onclick="
+          updateNavigation('typeArray', []);
+          updateNavigation('keyword', 'tourist attraction');">
+          Classic Attractions
+        </a>
+        <a href="#party" onclick="
+          updateNavigation('typeArray', ['night_club']);
+          updateNavigation('keyword', '');">
+          Party
+        </a>
+        <a href="#custom" onclick="
+          customUpdateNavigation();">
+          Custom
+        </a>
       </div>
     </div>
 
     <div class="filter">
       <button style="margin:10px;" onclick="toggleFunc(4);" class="dropbutton">PRICE</button>
       <div id="myDropdown4" class="dropdown-content">
-        <a href="#free">Free</a>
-        <a href="#$">$</a>
-        <a href="#$$">$$</a>
-        <a href="#$$$">$$$</a>
-        <a href="#$$$$">$$$$</a>
+        <a href="#$" onclick="updateNavigation('maxPrice', 0)">$</a>
+        <a href="#$$" onclick="updateNavigation('maxPrice', 1)">$$</a>
+        <a href="#$$$" onclick="updateNavigation('maxPrice', 2)">$$$</a>
+        <a href="#$$$$" onclick="updateNavigation('maxPrice', 3)">$$$$</a>
+        <a href="#$$$$$" onclick="updateNavigation('maxPrice', 4)">$$$$$</a>
       </div>
     </div>
 
     <div class="filter">
-      <button style="margin:10px;" onclick="toggleFunc(5);" class="dropbutton">HOURS</button>
+      <button style="margin:10px;" onclick="toggleFunc(5);" class="dropbutton">OPEN?</button>
       <div id="myDropdown5" class="dropdown-content">
-        <a href="#opennow">Open Now</a>
-        <a href="#open24">Open 24 hrs</a>
-        <a href="#openweekend">Open Weekends</a>
-        <a href="#openholiday">Open Holidays</a>
+        <a href="#all" onclick="updateNavigation('isOpen', null)">All</a>
+        <a href="#opennow" onclick="updateNavigation('isOpen', true)">Open Now</a>
+        <a href="#closednow" onclick="updateNavigation('isOpen', false)">Closed Now</a>
       </div>
     </div>
 
     <div class="filter">
-      <!-- TODO: Make this work :) -->
       <button style="margin:10px;" onclick="toggleFunc(0)" class="dropbutton updatebutton">UPDATE</button>
     </div>
   </div>
