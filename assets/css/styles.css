@@ -68,6 +68,19 @@ body {
 	margin: 15px 15px 15px 15px;
 	z-index: 2;
 }
+#help {
+  /* content: ''; */
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/46/Wikibooks-help-icon.svg);
+  background-size: contain;
+	width: 2.5rem;
+  height: 2.5rem;
+  right: 0;
+  margin: -29px 15px 0 0;
+
+	position: relative;
+  z-index: 2;
+}
+
 #hide-results-button {
 	content: "";
 
