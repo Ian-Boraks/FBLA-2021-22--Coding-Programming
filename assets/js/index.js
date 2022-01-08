@@ -2,9 +2,10 @@ var resultsCollapsed = false;
 
 $(function () {
   document.getElementById("hide-results-button").onclick = function () { toggleResults(); }
+  toggleResults();
 });
 
-function toggleResults() {
+window.toggleResults = function() {
   var $el = $("#" + "current-markers");
   if (resultsCollapsed) {
     $el.removeClass('resultsCollapsed');

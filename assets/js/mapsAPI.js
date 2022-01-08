@@ -18,6 +18,12 @@ let resultsFinal = [];
 
 import { defaultMapStyle } from "./maps_style.js";
 
+function noop() { };
+
+function toggleResultsFirstLoad() {
+  toggleResultsFirstLoad = noop;
+  toggleResults();
+}
 // This function is called when the page loads.
 $(function () {
   document.getElementById("reset-zoom-button").onclick =
@@ -33,6 +39,7 @@ window.updateMap = function (
   ratingMin = 0,
   isOpen = null) {
   console.log(types, keyword, radius, maxPrice, ratingMin, isOpen);
+  toggleResultsFirstLoad();
   // This is setting the global variable to the value of the local variable.
   minRating = ratingMin;
   $('#results-list').empty();
@@ -45,7 +52,7 @@ function resetMapArrays() {
   markersFinal.splice(0, markersFinal.length);
   resultsFinal.splice(0, resultsFinal.length);
 }
-function resetMapZoom() {
+window.resetMapZoom = function() {
   console.log("reset");
   map.panTo(ogCenter);
   map.setZoom(ogZoom);
@@ -181,11 +188,14 @@ function callback(results, status, pagination) {
   }
 };
 
-function createMarkers(places) {
+window.zoomIn = function (textContent) {
+  document.querySelector("[title=\"" + textContent + "\"]").dispatchEvent(new Event("dblclick"));
+}
 
+function createMarkers(places) {
   for (let i = 0, place; place = places[i]; i++) {
     // This sets what the image icon should be fore the marker
-    var image = {
+    let image = {
       url: place.icon,
       // size: new google.maps.Size(71, 71),
       // origin: new google.maps.Point(0, 0),
@@ -206,7 +216,9 @@ function createMarkers(places) {
       '<div id="info-content">' +
       '<h1>' + marker.getTitle() + '</h1>' +
       '<a href="https://www.google.com/maps/place/?q=place_id:' + place.place_id + '" target="_blank">' +
-      'Link to Google Maps </a>' +
+      'Link to Google Maps </a> <br>' +
+      '<a href="javascript:void(0);" onclick="zoomIn(\'' + marker.getTitle() + '\');">' +
+      'Zoom In </a>' +
       '</div>'
       ;
 
@@ -215,16 +227,16 @@ function createMarkers(places) {
       infoWindow.close();
       infoWindow.setContent(contentString);
       infoWindow.open(this.getMap(), this);
+    });
 
-      // let currentZoom = map.getZoom();
-      // console.log(currentZoom);
-
-      // map.panTo(this.getPosition());
-      // if (!zoomedIn) {
-      //   map.setZoom(18);
-      //   zoomedIn = true;
-      //   window.setTimeout(() => { zoomedIn = false;}, 3500);
-      // };
+    google.maps.event.addListener(marker, 'dblclick', function () {
+      console.log('zoomIn');
+      map.panTo(marker.getPosition());
+      if (!zoomedIn) {
+        map.setZoom(17);
+        zoomedIn = true;
+        window.setTimeout(() => { zoomedIn = false; }, 3500);
+      };
     });
 
     markersFinal.push(marker);
