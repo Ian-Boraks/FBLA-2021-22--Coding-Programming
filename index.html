@@ -11,7 +11,11 @@
   <link rel="icon" type="image/svg" href="https://upload.wikimedia.org/wikipedia/commons/4/46/Flag_of_Colorado.svg">
 
   <link rel="stylesheet" href="/assets/css/styles.css?v=1.0">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
   <script src="assets/js/csi/csi.min.js"></script>
   <script type="module" src="/assets/js/mapsAPI.js"></script>
   <script src="assets/js/navigation_menu.js"></script>
@@ -30,12 +34,12 @@
       </ul>
       <button id="reset-zoom-button">Reset Zoom</button>
       <div id="hide-results-button"></div>
-      <div id=""help></div>
+      <span id="help" onclick="openDialogBox();"></span>
     </div>
   </div>
   <div data-include="assets/html/footer.html"></div>
 
-  <div id="dialog" title="Basic dialog">
+  <div id="dialog" title="Help">
     <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the &apos;x&apos; icon.</p>
   </div>
 
