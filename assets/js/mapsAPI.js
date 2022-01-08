@@ -1,5 +1,5 @@
 let map;
-let infowindow;
+let infoWindow;
 let places;
 let initialLocation;
 
@@ -15,6 +15,8 @@ let zoomedIn = false;
 let markersFinal = [];
 let typeArray = [];
 let resultsFinal = [];
+
+import { defaultMapStyle } from "./maps_style.js";
 
 // This function is called when the page loads.
 $(function () {
@@ -73,7 +75,7 @@ function find(
   if (isOpen) {
     request['opennow'] = isOpen;
   }
-  infowindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
   places = new google.maps.places.PlacesService(map);
   places.nearbySearch(request, callback);
 }
@@ -84,7 +86,7 @@ window.initMap = function () {
     zoom: 15,
     center: { lat: 0, lng: 0 },
     zoomDelta: 0.25,
-    zoomSnap: 0
+    styles: defaultMapStyle
   });
 
   if (navigator.geolocation) {
@@ -175,17 +177,19 @@ function callback(results, status, pagination) {
       pagination.nextPage();
     }
     setBounds();
+    updateResultsList();
   }
 };
 
 function createMarkers(places) {
+
   for (let i = 0, place; place = places[i]; i++) {
     // This sets what the image icon should be fore the marker
     var image = {
       url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
+      // size: new google.maps.Size(71, 71),
+      // origin: new google.maps.Point(0, 0),
+      // anchor: new google.maps.Point(17, 34),
       scaledSize: new google.maps.Size(25, 25)
     };
 
@@ -194,23 +198,35 @@ function createMarkers(places) {
       map: map,
       icon: image,
       title: place.name,
+      label: '',
       position: place.geometry.location
     });
 
+    let contentString =
+      '<div id="info-content">' +
+      '<h1>' + marker.getTitle() + '</h1>' +
+      '<a href="https://www.google.com/maps/place/?q=place_id:' + place.place_id + '" target="_blank">' +
+      'Link to Google Maps </a>' +
+      '</div>'
+      ;
+
     // Zoom in on the marker when it is clicked.
     google.maps.event.addListener(marker, 'click', function () {
-      let currentZoom = map.getZoom();
-      console.log(currentZoom);
+      infoWindow.close();
+      infoWindow.setContent(contentString);
+      infoWindow.open(this.getMap(), this);
 
-      map.panTo(this.getPosition());
-      if (!zoomedIn) {
-        map.setZoom(18);
-        zoomedIn = true;
-        window.setTimeout(() => { zoomedIn = false; }, 3500);
-      };
+      // let currentZoom = map.getZoom();
+      // console.log(currentZoom);
+
+      // map.panTo(this.getPosition());
+      // if (!zoomedIn) {
+      //   map.setZoom(18);
+      //   zoomedIn = true;
+      //   window.setTimeout(() => { zoomedIn = false;}, 3500);
+      // };
     });
 
     markersFinal.push(marker);
   }
-  updateResultsList();
 }

@@ -92,6 +92,13 @@ body {
 	background-color: var(--accent-color-light);
 }
 
+#info-content{
+  color: var(--text-color-dark);
+}
+#info-content h1 {
+  font-size: 1em;
+}
+
 .resultsCollapse #hide-results-button::after,
 .resultsCollapsed #hide-results-button::after {
 	content: "EXPAND";
