@@ -169,7 +169,8 @@ function setBounds() {
 function callback(results, status, pagination) {
   if (status !== 'OK') {
     console.log(status);
-    alert('Status: ' + status + '\nPlease try a different search.');
+    alert('Status: ' + status + '\n\nSearch options have been reset.\nPlease try a different search.');
+    resetUpdateNavigation();
     return;
   } else {
     if (minRating > 0) {

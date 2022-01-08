@@ -57,7 +57,7 @@ body {
 
 #current-markers {
 	color: var(--text-color-dark);
-	background-color: var(--background-color-light);
+	background-color: #f5f1e6;
 	border-radius: 2rem;
 
 	position: fixed;
@@ -71,7 +71,7 @@ body {
 #hide-results-button {
 	content: "";
 
-	background-color: var(--background-color-light);
+	background-color: var(--accent-color-dark);
 	border-radius: 1rem;
 	position: absolute;
 	z-index: 3;
@@ -85,7 +85,8 @@ body {
 }
 #hide-results-button::after {
 	content: "HIDE";
-	font-family: "Courier New", Courier, monospace;
+	font-family: Impact, "Courier New", Courier, monospace;
+  font-size: 1.25em;
 	color: var(--text-color-dark);
 	width: fit-content;
 
@@ -96,6 +97,25 @@ body {
 }
 #hide-results-button:hover {
 	background-color: var(--accent-color-light);
+  cursor: pointer;
+}
+
+#reset-zoom-button {
+  font-family: "Courier New", Courier, monospace;
+  background-color: var(--accent-color-dark);
+  border: none;
+  padding: .5rem;
+  width: 7em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+#reset-zoom-button:hover {
+  background-color: var(--accent-color-light);
+  cursor: pointer;
 }
 
 #info-content{
@@ -165,14 +185,32 @@ body {
 	transform: translateX(-50%);
 }
 
-@media (max-width: 854px) {
+@media (max-width: 1000px) {
 	#map {
-		height: calc(100% - 108.8px);
+		height: calc(100% - 34.4px);
 	}
 }
 
-@media (max-width: 425px) {
+@media (max-width: 930px) {
 	#map {
-		height: calc(100% - 163.2px);
+		height: calc(100% - 68.8px);
+	}
+}
+
+@media (max-width: 530px) {
+	#map {
+		height: calc(100% - 103.2px);
+	}
+}
+
+@media (max-width: 397px) {
+	#map {
+		height: calc(100% - 137.6px);
+	}
+}
+
+@media (max-width: 262px) {
+	#map {
+		height: calc(100% - 240.8px);
 	}
 }

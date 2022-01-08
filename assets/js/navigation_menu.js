@@ -20,6 +20,18 @@ window.updateNavigation = function (varName, value) {
   console.log(navigationValues);
 }
 
+window.resetUpdateNavigation = function () {
+  console.log("reset");
+  navigationValues = {
+    'typeArray': [],
+    'keyword': '',
+    'radius': 10000,
+    'maxPrice': 4,
+    'ratingMin': 0,
+    'isOpen': null
+  }
+}
+
 function closeActive(currElem) {
   var active = document.getElementsByClassName("show");
   for (var i = 0; i < active.length; i++) {

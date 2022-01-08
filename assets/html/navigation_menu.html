@@ -5,9 +5,10 @@
     }
 
     .dropbutton {
-      background-color: green;
+      background-color: #447530;
       color: white;
       padding: 10px 20px;
+      margin: 10px;
       font-size: 12px;
       font-weight: bold;
       border-radius: 4px;
@@ -19,17 +20,19 @@
     }
 
     .dropbutton.updatebutton {
-      background-color: var(--accent-color-light);
+      background-color: var(--accent-color-dark);
+      color: rgb(34, 34, 34);
     }
 
     .dropbutton:hover,
     .dropbutton:focus {
       background-color: rgba(0, 128, 0, 0.534);
+      cursor: pointer;
     }
 
     .dropbutton.updatebutton:hover,
     .dropbutton.updatebutton:focus {
-      background-color: var(--accent-color-dark);
+      background-color: var(--accent-color-light);
     }
 
     .filter {
@@ -69,10 +72,17 @@
     .allfilters {
       text-align: center;
     }
+
+    @media (max-width: 1000px) {
+      .dropbutton {
+       padding: 5px;
+       margin: 5px;
+      }
+    }
   </style>
   <div class="allfilters">
     <div class="filter">
-      <button style="margin:10px;" onclick="toggleFunc(1);" class="dropbutton">MIN RATING</button>
+      <button onclick="toggleFunc(1);" class="dropbutton">MIN RATING</button>
       <div id="myDropdown1" class="dropdown-content">
         <a href="#" onclick="updateNavigation('ratingMin', 0)">All</a>
         <a href="#" onclick="updateNavigation('ratingMin', 2)">2.0 ●●○○○</a>
@@ -85,7 +95,7 @@
     </div>
 
     <div class="filter">
-      <button style="margin:10px;" onclick="toggleFunc(2);" class="dropbutton">DISTANCE</button>
+      <button onclick="toggleFunc(2);" class="dropbutton">DISTANCE</button>
       <div id="myDropdown2" class="dropdown-content">
         <a href="#" onclick="updateNavigation('radius', 8000)">5 Miles</a>
         <a href="#" onclick="updateNavigation('radius', 16000)">10 Miles</a>
@@ -95,7 +105,7 @@
     </div>
 
     <div class="filter">
-      <button style="margin:10px;" onclick="toggleFunc(3);" class="dropbutton">TYPE</button>
+      <button onclick="toggleFunc(3);" class="dropbutton">TYPE</button>
       <div id="myDropdown3" class="dropdown-content">
         <a href="#" onclick="
           updateNavigation('typeArray', ['restaurant']);
@@ -140,7 +150,7 @@
     </div>
 
     <div class="filter">
-      <button style="margin:10px;" onclick="toggleFunc(4);" class="dropbutton">PRICE</button>
+      <button onclick="toggleFunc(4);" class="dropbutton">PRICE</button>
       <div id="myDropdown4" class="dropdown-content">
         <a href="#" onclick="updateNavigation('maxPrice', 0)">$</a>
         <a href="#" onclick="updateNavigation('maxPrice', 1)">$$</a>
@@ -151,7 +161,7 @@
     </div>
 
     <div class="filter">
-      <button style="margin:10px;" onclick="toggleFunc(5);" class="dropbutton">OPEN?</button>
+      <button onclick="toggleFunc(5);" class="dropbutton">OPEN?</button>
       <div id="myDropdown5" class="dropdown-content">
         <a href="#" onclick="updateNavigation('isOpen', null)">All</a>
         <a href="#" onclick="updateNavigation('isOpen', true)">Open Now</a>
@@ -159,8 +169,14 @@
       </div>
     </div>
 
-    <div class="filter">
-      <button style="margin:10px;" onclick="toggleFunc(0)" class="dropbutton updatebutton">UPDATE</button>
+    <div style="display: inline-block;">
+      <div class="filter">
+        <button onclick="toggleFunc(0)" class="dropbutton updatebutton">UPDATE</button>
+      </div>
+  
+      <div class="filter">
+        <button onclick="toggleFunc(0)" class="dropbutton updatebutton">RESET</button>
+      </div>
     </div>
   </div>
 </div>
