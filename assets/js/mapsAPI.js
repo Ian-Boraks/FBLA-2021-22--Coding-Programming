@@ -100,7 +100,7 @@ window.initMap = function () {
     navigator.geolocation.getCurrentPosition(function (position) {
       initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       map.setCenter(initialLocation);
-      console.log(position.coords.latitude);
+      // console.log(position.coords.latitude);
       // creates a marker of user's location
       var marker = new google.maps.Marker({
         position: initialLocation,
