@@ -13,7 +13,6 @@ let minRating = 0;
 let zoomedIn = false;
 
 let markersFinal = [];
-let typeArray = [];
 let resultsFinal = [];
 
 import { defaultMapStyle } from "./maps_style.js";
@@ -21,8 +20,9 @@ import { defaultMapStyle } from "./maps_style.js";
 function noop() { };
 
 function toggleResultsFirstLoad() {
+  // This line makes it so this function only runs once.
   toggleResultsFirstLoad = noop;
-  toggleResults();
+  toggleResults(true);
 }
 // This function is called when the page loads.
 $(function () {
@@ -32,20 +32,20 @@ $(function () {
 
 // * This is to be ran by the update map button
 window.updateMap = function (
-  types = typeArray,
+  types = [''],
   keyword = "",
-  radius = 10000,
-  maxPrice = 4,
+  radius = 20000,
+  price = null,
   ratingMin = 0,
   isOpen = null) {
-  console.log(types, keyword, radius, maxPrice, ratingMin, isOpen);
+  console.log(types, keyword, radius, price, ratingMin, isOpen);
   toggleResultsFirstLoad();
   // This is setting the global variable to the value of the local variable.
   minRating = ratingMin;
   $('#results-list').empty();
   deleteMarkers();
   resetMapArrays();
-  find(initialLocation, types, keyword, radius, maxPrice, isOpen);
+  find(initialLocation, types, keyword, radius, price, isOpen);
 }
 
 function resetMapArrays() {
@@ -66,10 +66,10 @@ function deleteMarkers() {
 
 function find(
   latLng,
-  types = ['restaurant'],
+  types = [''],
   keyword = "",
-  radius = 10000,
-  maxPrice = 4,
+  radius = 20000,
+  price = null,
   isOpen = null) {
   // TODO: Make it so that the find() only works for a certain latLng range.
   var request = {
@@ -77,11 +77,15 @@ function find(
     keyword: keyword,
     location: latLng,
     radius: radius, // This is in meters
-    maxPrice: maxPrice,
   };
   if (isOpen) {
     request['opennow'] = isOpen;
   }
+  if (price) {
+    request['maxPriceLevel'] = price;
+    // request['minPriceLevel'] = price;
+  }
+  console.log(request);
   infoWindow = new google.maps.InfoWindow();
   places = new google.maps.places.PlacesService(map);
   places.nearbySearch(request, callback);
@@ -120,9 +124,6 @@ window.initMap = function () {
       zoomedIn = false;
     }
   });
-
-  // This resets the typeArray to an empty array.
-  typeArray.splice(0, typeArray.length);
 }
 
 function updateResultsList() {

@@ -101,6 +101,7 @@
         <a href="#" onclick="updateNavigation('radius', 16000)">10 Miles</a>
         <a href="#" onclick="updateNavigation('radius', 42000)">15 Miles</a>
         <a href="#" onclick="updateNavigation('radius', 50000)">20 Miles</a>
+        <a href="#" onclick="updateNavigation('radius', 500000)">+20 Miles</a>
       </div>
     </div>
 
@@ -150,22 +151,22 @@
     </div>
 
     <div class="filter">
-      <button onclick="toggleFunc(4);" class="dropbutton">PRICE</button>
+      <button onclick="toggleFunc(4);" class="dropbutton">MAX PRICE</button>
       <div id="myDropdown4" class="dropdown-content">
-        <a href="#" onclick="updateNavigation('maxPrice', 0)">$</a>
-        <a href="#" onclick="updateNavigation('maxPrice', 1)">$$</a>
-        <a href="#" onclick="updateNavigation('maxPrice', 2)">$$$</a>
-        <a href="#" onclick="updateNavigation('maxPrice', 3)">$$$$</a>
-        <a href="#" onclick="updateNavigation('maxPrice', 4)">$$$$$</a>
+        <a href="#" onclick="updateNavigation('price', 1)">$</a>
+        <a href="#" onclick="updateNavigation('price', 2)">$$</a>
+        <a href="#" onclick="updateNavigation('price', 3)">$$$</a>
+        <a href="#" onclick="updateNavigation('price', 4)">$$$$</a>
+        <a href="#" onclick="updateNavigation('price', null)">SHOW ALL</a>
       </div>
     </div>
 
     <div class="filter">
       <button onclick="toggleFunc(5);" class="dropbutton">OPEN</button>
       <div id="myDropdown5" class="dropdown-content">
-        <a href="#" onclick="updateNavigation('isOpen', null)">All</a>
         <a href="#" onclick="updateNavigation('isOpen', true)">Open Now</a>
         <a href="#" onclick="updateNavigation('isOpen', false)">Closed Now</a>
+        <a href="#" onclick="updateNavigation('isOpen', null)">SHOW ALL</a>
       </div>
     </div>
 

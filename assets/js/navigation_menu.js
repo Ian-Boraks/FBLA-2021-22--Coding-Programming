@@ -2,8 +2,8 @@
 let navigationValues = {
   'typeArray': [],
   'keyword': '',
-  'radius': 10000,
-  'maxPrice': 4,
+  'radius': 20000,
+  'price': null,
   'ratingMin': 0,
   'isOpen': null
 }
@@ -25,8 +25,8 @@ window.resetUpdateNavigation = function () {
   navigationValues = {
     'typeArray': [],
     'keyword': '',
-    'radius': 10000,
-    'maxPrice': 4,
+    'radius': 20000,
+    'price': null,
     'ratingMin': 0,
     'isOpen': null
   }
@@ -48,7 +48,7 @@ function toggleFunc(num) {
       navigationValues.typeArray, // Types
       navigationValues.keyword, // Keyword
       navigationValues.radius, // Radius
-      navigationValues.maxPrice, // Max Price
+      navigationValues.price, // Max Price
       navigationValues.ratingMin, // Min Rating
       navigationValues.isOpen // Is Open
     );

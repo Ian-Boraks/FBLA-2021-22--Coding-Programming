@@ -17,9 +17,9 @@ window.openDialogBox = function() {
   $("#dialog").dialog("open");
 };
 
-window.toggleResults = function () {
+window.toggleResults = function (forceExpand = false) {
   var $el = $("#" + "current-markers");
-  if (resultsCollapsed) {
+  if (resultsCollapsed || forceExpand) {
     $el.removeClass('resultsCollapsed');
     $el.addClass('resultsExpand');
     resultsCollapsed = false;
