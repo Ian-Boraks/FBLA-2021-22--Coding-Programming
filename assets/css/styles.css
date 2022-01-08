@@ -3,10 +3,10 @@
 html {
 	height: 100vh;
 	width: 100vw;
-  /* ! Now 1rem will always be 10px */
+	/* ! Now 1rem will always be 10px */
 	font-size: 10px;
 
-	overflow-x: hidden;
+	overflow: hidden;
 	scroll-behavior: smooth;
 }
 
@@ -33,25 +33,31 @@ body {
 }
 
 #menu {
-  /* ! This is to change the height of the menu bar
+	/* ! This is to change the height of the menu bar
      ! Plz make this mobile response (or you can let me handle
      ! this after you are done with the menu). */
-  height: 7rem; 
+	height: 0rem;
 }
 
 #map {
+  /* This file is made available under the Creative Commons CC0 1.0 Universal Public Domain Dedication */
+  /* Khayri R.R. Woulfe, CC0, via Wikimedia Commons */
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/28/404UnicornNotFound.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  
 	position: relative;
 	width: 100%;
-  /* ! This needs to be changed with the #menu height.
+	/* ! This needs to be changed with the #menu height.
      ! 100% - #menu { height } */
-	height: calc(100% - 7rem);
+	height: calc(100% - 54.4px);
 	color: var(--text-color-light);
-	z-index: 1;
+	z-index: 0;
 }
 
 #current-markers {
 	color: var(--text-color-dark);
-	background-color: var(--background-color-light);
+	background-color: #f5f1e6;
 	border-radius: 2rem;
 
 	position: fixed;
@@ -62,13 +68,26 @@ body {
 	margin: 15px 15px 15px 15px;
 	z-index: 2;
 }
+#help {
+  /* content: ''; */
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/46/Wikibooks-help-icon.svg);
+  background-size: contain;
+	width: 2.5rem;
+  height: 2.5rem;
+  right: 0;
+  margin: -29px 15px 0 0;
+
+	position: relative;
+  z-index: 2;
+}
+
 #hide-results-button {
 	content: "";
 
-	background-color: var(--background-color-light);
+	background-color: var(--accent-color-dark);
 	border-radius: 1rem;
 	position: absolute;
-  z-index: 3;
+	z-index: 3;
 
 	padding: 4rem 1rem 4rem 2rem;
 	margin: 50% -2rem 0 0;
@@ -79,7 +98,8 @@ body {
 }
 #hide-results-button::after {
 	content: "HIDE";
-	font-family: "Courier New", Courier, monospace;
+	font-family: Impact, "Courier New", Courier, monospace;
+  font-size: 1.25em;
 	color: var(--text-color-dark);
 	width: fit-content;
 
@@ -90,12 +110,38 @@ body {
 }
 #hide-results-button:hover {
 	background-color: var(--accent-color-light);
+  cursor: pointer;
+}
+
+#reset-zoom-button {
+  font-family: "Courier New", Courier, monospace;
+  background-color: var(--accent-color-dark);
+  border: none;
+  padding: .5rem;
+  width: 7em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+#reset-zoom-button:hover {
+  background-color: var(--accent-color-light);
+  cursor: pointer;
+}
+
+#info-content{
+  color: var(--text-color-dark);
+}
+#info-content h1 {
+  font-size: 1em;
 }
 
 .resultsCollapse #hide-results-button::after,
 .resultsCollapsed #hide-results-button::after {
 	content: "EXPAND";
-  margin: -0.5em 0 0 -3.15rem;
+	margin: -0.5em 0 0 -3.15rem;
 }
 
 .resultsExpand {
@@ -150,4 +196,34 @@ body {
 	position: relative;
 	margin: 0 0 0 50%;
 	transform: translateX(-50%);
+}
+
+@media (max-width: 1000px) {
+	#map {
+		height: calc(100% - 34.4px);
+	}
+}
+
+@media (max-width: 930px) {
+	#map {
+		height: calc(100% - 68.8px);
+	}
+}
+
+@media (max-width: 530px) {
+	#map {
+		height: calc(100% - 103.2px);
+	}
+}
+
+@media (max-width: 397px) {
+	#map {
+		height: calc(100% - 137.6px);
+	}
+}
+
+@media (max-width: 262px) {
+	#map {
+		height: calc(100% - 240.8px);
+	}
 }
