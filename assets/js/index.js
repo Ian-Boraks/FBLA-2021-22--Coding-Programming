@@ -6,9 +6,6 @@ $(function () {
 
   $("#dialog").dialog({
     closeText: "hide",
-    close: function (e, ui) {
-      enableScroll();
-    },
     closeOnEscape: true,
     autoOpen: false,
     draggable: false
@@ -16,7 +13,6 @@ $(function () {
 });
 
 window.openDialogBox = function() {
-  disableScroll();
   $("#dialog").dialog("close");
   $("#dialog").dialog("open");
 };

@@ -77,8 +77,11 @@ body {
   right: 0;
   margin: -29px 15px 0 0;
 
-	position: relative;
+	position: absolute;
   z-index: 2;
+}
+#help:hover {
+  cursor: pointer;
 }
 
 #hide-results-button {
