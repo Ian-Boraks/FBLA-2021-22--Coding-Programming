@@ -2,9 +2,11 @@ var animationCollapsed = false;
 var animationDone = true;
 
 $(function () {
+  // This adds the onclick event to the hide/expand results button
   document.getElementById("hide-results-button").onclick = function () { toggleResults(); }
   toggleResults();
 
+  // This sets up the dialog box for the help window.
   $("#dialog").dialog({
     closeText: "hide",
     closeOnEscape: true,
@@ -19,11 +21,13 @@ window.openDialogBox = function () {
 };
 
 window.toggleAnimations = function (forceExpand) {
+  // This is the set of animations that need to run when toggling the results.
   let $el = [
     $("#" + "current-markers"),
     $("#" + "help")
   ];
 
+  // These are the keywords for the css classes that will be used to animate the elements.
   let elName = [
     'results',
     'help'
@@ -54,6 +58,7 @@ window.toggleAnimations = function (forceExpand) {
   }
 }
 
+// This is the function that is called when the user clicks the hide/expand results button.
 window.toggleResults = function (forceExpand = false) {
   if (animationDone) {
     animationDone = false;
