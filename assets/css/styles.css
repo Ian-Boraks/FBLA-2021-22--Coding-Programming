@@ -40,12 +40,12 @@ body {
 }
 
 #map {
-  /* This file is made available under the Creative Commons CC0 1.0 Universal Public Domain Dedication */
-  /* Khayri R.R. Woulfe, CC0, via Wikimedia Commons */
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/28/404UnicornNotFound.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  
+	/* This file is made available under the Creative Commons CC0 1.0 Universal Public Domain Dedication */
+	/* Khayri R.R. Woulfe, CC0, via Wikimedia Commons */
+	background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/28/404UnicornNotFound.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+
 	position: relative;
 	width: 100%;
 	/* ! This needs to be changed with the #menu height.
@@ -53,6 +53,16 @@ body {
 	height: calc(100% - 54.4px);
 	color: var(--text-color-light);
 	z-index: 0;
+}
+#map::after { /* This hides any gap left by the map at the bottom*/
+  content: "";
+  width: 100%;
+  height: 100px;
+  bottom: 0;
+  margin-bottom: -50px;
+  position: fixed;
+  background-color: var(--background-color-light);
+  z-index: -1;
 }
 
 #current-markers {
@@ -69,19 +79,19 @@ body {
 	z-index: 2;
 }
 #help {
-  /* HirnSpuk, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons */
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/46/Wikibooks-help-icon.svg);
-  background-size: contain;
+	/* HirnSpuk, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons */
+	background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/46/Wikibooks-help-icon.svg);
+	background-size: contain;
 	width: 2.5rem;
-  height: 2.5rem;
-  right: 0;
-  margin: -29px 15px 0 0;
+	height: 2.5rem;
+	right: 0;
+	margin: -29px 15px 0 0;
 
 	position: absolute;
-  z-index: 2;
+	z-index: 2;
 }
 #help:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 #hide-results-button {
@@ -102,7 +112,7 @@ body {
 #hide-results-button::after {
 	content: "HIDE";
 	font-family: Impact, "Courier New", Courier, monospace;
-  font-size: 1.25em;
+	font-size: 1.25em;
 	color: var(--text-color-dark);
 	width: fit-content;
 
@@ -113,32 +123,105 @@ body {
 }
 #hide-results-button:hover {
 	background-color: var(--accent-color-light);
-  cursor: pointer;
+	cursor: pointer;
 }
 
 #reset-zoom-button {
-  font-family: "Courier New", Courier, monospace;
-  background-color: var(--accent-color-dark);
-  border: none;
-  padding: .5rem;
-  width: 7em;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin-left: 50%;
-  transform: translateX(-50%);
+	font-family: "Courier New", Courier, monospace;
+	background-color: var(--accent-color-dark);
+	border: none;
+	padding: 0.5rem;
+	width: 7em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin-left: 50%;
+	transform: translateX(-50%);
 }
 #reset-zoom-button:hover {
-  background-color: var(--accent-color-light);
-  cursor: pointer;
+	background-color: var(--accent-color-light);
+	cursor: pointer;
 }
 
-#info-content{
-  color: var(--text-color-dark);
+#info-content {
+	color: var(--text-color-dark);
 }
 #info-content h1 {
-  font-size: 1em;
+	font-size: 1em;
+}
+
+#navigation-menu {
+	z-index: 1;
+}
+
+#navigation-menu .dropbutton {
+	background-color: #447530;
+	color: white;
+	padding: 5px 20px;
+	margin: 10px;
+	font-size: 20px;
+  letter-spacing: 0.1em;
+	border-radius: 4px;
+	border: none;
+	transition-duration: 0.6s;
+	font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+
+	min-width: 120px;
+}
+
+#navigation-menu .dropbutton.updatebutton {
+	background-color: var(--accent-color-dark);
+	color: rgb(34, 34, 34);
+}
+
+#navigation-menu .dropbutton:hover,
+#navigation-menu .dropbutton:focus {
+	background-color: rgba(0, 128, 0, 0.534);
+	cursor: pointer;
+}
+
+#navigation-menu .dropbutton.updatebutton:hover,
+#navigation-menu .dropbutton.updatebutton:focus {
+	background-color: var(--accent-color-light);
+}
+
+#navigation-menu .filter {
+	position: relative;
+	display: inline-block;
+}
+
+#navigation-menu .dropdown-content {
+	display: none;
+	position: absolute;
+	text-align: center;
+	background-color: white;
+	min-width: 120px;
+	overflow: auto;
+	z-index: 1;
+
+	margin-left: 50%;
+	transform: translateX(-50%);
+}
+
+#navigation-menu .dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+#navigation-menu .filter a:hover {
+	background-color: #ddd;
+}
+
+#navigation-menu .show {
+	display: block;
+}
+
+#navigation-menu .allfilters {
+	text-align: center;
 }
 
 .resultsCollapse #hide-results-button::after,
@@ -185,7 +268,7 @@ body {
 	width: 100%;
 
 	max-height: 18rem;
-  min-height: 14rem;
+	min-height: 14rem;
 	width: 18rem;
 
 	padding-left: 1.25rem;
@@ -201,32 +284,37 @@ body {
 	transform: translateX(-50%);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1144px) {
 	#map {
-		height: calc(100% - 34.4px);
+		height: calc(100% - 44px);
+	}
+
+  #navigation-menu .dropbutton {
+		padding: 5px;
+		margin: 5px;
 	}
 }
 
-@media (max-width: 930px) {
+@media (max-width: 980px) {
 	#map {
-		height: calc(100% - 68.8px);
+		height: calc(100% - 88px);
 	}
 }
 
-@media (max-width: 530px) {
+@media (max-width: 545px) {
 	#map {
-		height: calc(100% - 103.2px);
+		height: calc(100% - 132px);
 	}
 }
 
 @media (max-width: 397px) {
 	#map {
-		height: calc(100% - 137.6px);
+		height: calc(100% - 176px);
 	}
 }
 
-@media (max-width: 262px) {
+@media (max-width: 278px) {
 	#map {
-		height: calc(100% - 240.8px);
+		height: calc(100% - 308px);
 	}
 }

@@ -1,149 +1,70 @@
 <div id="navigation-menu">
-  <style scoped>
-    #navigation-menu {
-      z-index: 1;
-    }
-
-    .dropbutton {
-      background-color: #447530;
-      color: white;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 12px;
-      font-weight: bold;
-      border-radius: 4px;
-      border: none;
-      transition-duration: 0.6s;
-      font-family: "Lucida Console";
-
-      min-width: 120px;
-    }
-
-    .dropbutton.updatebutton {
-      background-color: var(--accent-color-dark);
-      color: rgb(34, 34, 34);
-    }
-
-    .dropbutton:hover,
-    .dropbutton:focus {
-      background-color: rgba(0, 128, 0, 0.534);
-      cursor: pointer;
-    }
-
-    .dropbutton.updatebutton:hover,
-    .dropbutton.updatebutton:focus {
-      background-color: var(--accent-color-light);
-    }
-
-    .filter {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      text-align: center;
-      background-color: white;
-      min-width: 120px;
-      overflow: auto;
-      z-index: 1;
-
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-
-    }
-
-    .filter a:hover {
-      background-color: #ddd;
-    }
-
-    .show {
-      display: block;
-    }
-
-    .allfilters {
-      text-align: center;
-    }
-
-    @media (max-width: 1000px) {
-      .dropbutton {
-       padding: 5px;
-       margin: 5px;
-      }
-    }
-  </style>
   <div class="allfilters">
     <div class="filter">
-      <button onclick="toggleFunc(1);" class="dropbutton">MIN RATING</button>
+      <button onclick="toggleFunc(1);" class="dropbutton" tabindex="0">MIN RATING</button>
       <div id="myDropdown1" class="dropdown-content">
-        <a href="#" onclick="updateNavigation('ratingMin', 0)">All</a>
-        <a href="#" onclick="updateNavigation('ratingMin', 2)">2.0 ●●○○○</a>
-        <a href="#" onclick="updateNavigation('ratingMin', 2.5)">2.5 ●●◐○○</a>
-        <a href="#" onclick="updateNavigation('ratingMin', 3)">3.0 ●●●○○</a>
-        <a href="#" onclick="updateNavigation('ratingMin', 3.5)">3.5 ●●●◐○</a>
-        <a href="#" onclick="updateNavigation('ratingMin', 4)">4.0 ●●●●○</a>
-        <a href="#" onclick="updateNavigation('ratingMin', 4.5)">4.5 ●●●●◐</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('ratingMin', 0)">All</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('ratingMin', 2)">2.0 ●●○○○</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('ratingMin', 2.5)">2.5 ●●◐○○</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('ratingMin', 3)">3.0 ●●●○○</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('ratingMin', 3.5)">3.5 ●●●◐○</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('ratingMin', 4)">4.0 ●●●●○</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('ratingMin', 4.5)">4.5 ●●●●◐</a>
       </div>
     </div>
 
     <div class="filter">
-      <button onclick="toggleFunc(2);" class="dropbutton">DISTANCE</button>
+      <button onclick="toggleFunc(2);" class="dropbutton" tabindex="0">DISTANCE</button>
       <div id="myDropdown2" class="dropdown-content">
-        <a href="#" onclick="updateNavigation('radius', 8000)">5 Miles</a>
-        <a href="#" onclick="updateNavigation('radius', 16000)">10 Miles</a>
-        <a href="#" onclick="updateNavigation('radius', 42000)">15 Miles</a>
-        <a href="#" onclick="updateNavigation('radius', 50000)">20 Miles</a>
-        <a href="#" onclick="updateNavigation('radius', 500000)">+20 Miles</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('radius', 8000)">5 Miles</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('radius', 16000)">10 Miles</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('radius', 42000)">15 Miles</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('radius', 50000)">20 Miles</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('radius', 500000)">+20 Miles</a>
       </div>
     </div>
 
     <div class="filter">
-      <button onclick="toggleFunc(3);" class="dropbutton">TYPE</button>
+      <button onclick="toggleFunc(3);" class="dropbutton" tabindex="0">TYPE</button>
       <div id="myDropdown3" class="dropdown-content">
-        <a href="#" onclick="
+        <!-- This filter looks a little different as it is the only one that needs to set 2 different attributes of the mapupdate function -->
+        <!-- It needs to set typeArray and keyword -->
+        <a href="#" class="filter-option" onclick="
           updateNavigation('typeArray', ['restaurant']);
           updateNavigation('keyword', '');">
           Food
         </a>
-        <a href="#" onclick="
+        <a href="#" class="filter-option" onclick="
           updateNavigation('typeArray', ['park']);
           updateNavigation('keyword', '');">
           Outdoor
         </a>
-        <a href="#" onclick="
+        <a href="#" class="filter-option" onclick="
           updateNavigation('typeArray', []);
           updateNavigation('keyword', 'shopping');">
           Shopping
         </a>
-        <a href="#" onclick="
+        <a href="#" class="filter-option" onclick="
           updateNavigation('typeArray', []);
           updateNavigation('keyword', 'kid friendly attraction');">
           Kid-Friendly
         </a>
-        <a href="#" onclick="
+        <a href="#" class="filter-option" onclick="
           updateNavigation('typeArray', ['spa']);
           updateNavigation('keyword', '');">
           Spa
         </a>
-        <a href="#" onclick="
+        <a href="#" class="filter-option" onclick="
           updateNavigation('typeArray', []);
           updateNavigation('keyword', 'tourist attraction');">
           Classic Attractions
         </a>
-        <a href="#" onclick="
+        <a href="#" class="filter-option" onclick="
           updateNavigation('typeArray', ['night_club']);
           updateNavigation('keyword', '');">
           Party
         </a>
-        <a href="#" onclick="
+        <a href="#" class="filter-option" onclick="
           customUpdateNavigation();">
           Custom
         </a>
@@ -151,32 +72,32 @@
     </div>
 
     <div class="filter">
-      <button onclick="toggleFunc(4);" class="dropbutton">MAX PRICE</button>
+      <button onclick="toggleFunc(4);" class="dropbutton" tabindex="0">MAX PRICE</button>
       <div id="myDropdown4" class="dropdown-content">
-        <a href="#" onclick="updateNavigation('price', 1)">$</a>
-        <a href="#" onclick="updateNavigation('price', 2)">$$</a>
-        <a href="#" onclick="updateNavigation('price', 3)">$$$</a>
-        <a href="#" onclick="updateNavigation('price', 4)">$$$$</a>
-        <a href="#" onclick="updateNavigation('price', null)">SHOW ALL</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('price', 1)">$</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('price', 2)">$$</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('price', 3)">$$$</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('price', 4)">$$$$</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('price', null)">SHOW ALL</a>
       </div>
     </div>
 
     <div class="filter">
-      <button onclick="toggleFunc(5);" class="dropbutton">OPEN</button>
+      <button onclick="toggleFunc(5);" class="dropbutton" tabindex="0">OPEN</button>
       <div id="myDropdown5" class="dropdown-content">
-        <a href="#" onclick="updateNavigation('isOpen', true)">Open Now</a>
-        <a href="#" onclick="updateNavigation('isOpen', false)">Closed Now</a>
-        <a href="#" onclick="updateNavigation('isOpen', null)">SHOW ALL</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('isOpen', true)">Open Now</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('isOpen', false)">Closed Now</a>
+        <a href="#" class="filter-option" onclick="updateNavigation('isOpen', null)">SHOW ALL</a>
       </div>
     </div>
 
     <div style="display: inline-block;">
       <div class="filter">
-        <button onclick="toggleFunc(0)" class="dropbutton updatebutton">UPDATE</button>
+        <button onclick="toggleFunc(0)" class="dropbutton updatebutton" tabindex="0">UPDATE</button>
       </div>
   
       <div class="filter">
-        <button onclick="toggleFunc(0)" class="dropbutton updatebutton">RESET</button>
+        <button onclick="toggleFunc(0)" class="dropbutton updatebutton" tabindex="0">RESET</button>
       </div>
     </div>
   </div>

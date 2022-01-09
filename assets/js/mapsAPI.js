@@ -17,20 +17,23 @@ let resultsFinal = [];
 
 import { defaultMapStyle } from "./maps_style.js";
 
+// no operation function
 function noop() { };
 
+// This makes sure that the marker list is shown when the user presses update for the first time.
 function toggleResultsFirstLoad() {
   // This line makes it so this function only runs once.
   toggleResultsFirstLoad = noop;
   toggleResults(true);
 }
+
 // This function is called when the page loads.
 $(function () {
   document.getElementById("reset-zoom-button").onclick =
     function () { resetMapZoom(); }
 });
 
-// * This is to be ran by the update map button
+// This is to be ran by the update map button
 window.updateMap = function (
   types = [''],
   keyword = "",
@@ -48,11 +51,12 @@ window.updateMap = function (
   find(initialLocation, types, keyword, radius, price, isOpen);
 }
 
+// RESET FUNCTIONS --------------------------------------------
 function resetMapArrays() {
   markersFinal.splice(0, markersFinal.length);
   resultsFinal.splice(0, resultsFinal.length);
 }
-window.resetMapZoom = function() {
+window.resetMapZoom = function () {
   console.log("reset");
   map.panTo(ogCenter);
   map.setZoom(ogZoom);
@@ -63,7 +67,9 @@ function deleteMarkers() {
     markersFinal[i].setMap(null);
   }
 }
+// ------------------------------------------------------------
 
+// This is the find function. It finds all places that match the search criteria.
 function find(
   latLng,
   types = [''],
@@ -78,13 +84,14 @@ function find(
     location: latLng,
     radius: radius, // This is in meters
   };
+
   if (isOpen) {
     request['opennow'] = isOpen;
-  }
-  if (price) {
+  } if (price) {
     request['maxPriceLevel'] = price;
     // request['minPriceLevel'] = price;
   }
+
   console.log(request);
   infoWindow = new google.maps.InfoWindow();
   places = new google.maps.places.PlacesService(map);
@@ -93,6 +100,7 @@ function find(
 
 // This is the main function that is called when the map loads
 window.initMap = function () {
+  // This is setting up the map with the default values and style.
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: { lat: 0, lng: 0 },
@@ -100,24 +108,27 @@ window.initMap = function () {
     styles: defaultMapStyle
   });
 
+  // This makes sure that the user has geolocation enabled for the website.
   if (navigator.geolocation) {
+    // This find the user location.
     navigator.geolocation.getCurrentPosition(function (position) {
       initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       map.setCenter(initialLocation);
-      // console.log(position.coords.latitude);
-      // creates a marker of user's location
+
+      // Creates a marker of user's location
       var marker = new google.maps.Marker({
         position: initialLocation,
         map: map,
         title: 'Your Location'
       });
-      // find(marker.getPosition());
     }, function (error) {
       console.log(error)
     });
+  } else {
+    alert('Geolocation is not supported/enabled by this browser.\n\nPlease use a browser that supports geolocation or enable geolocation.\nhttps://www.gps-coordinates.net/geolocation');
   }
 
-  // Modified from: https://tommcfarlin.com/tag/google-maps-api/
+  // This statement is used to detect if the map is idle. If so, it will check the zoom level of the map.
   google.maps.event.addListener(map, 'idle', function () {
     // updateResultsList();
     if (map.getZoom() < 15) {
