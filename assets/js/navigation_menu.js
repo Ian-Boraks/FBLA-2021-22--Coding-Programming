@@ -31,6 +31,7 @@ window.resetUpdateNavigation = function () {
     'ratingMin': 0,
     'isOpen': null
   }
+  alert('Reset navigation menu selections.');
 }
 
 // This function closes the dropdown menu if the user clicks a different dropdown
