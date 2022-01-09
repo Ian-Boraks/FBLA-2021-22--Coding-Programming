@@ -153,6 +153,8 @@ body {
 
 #navigation-menu {
 	z-index: 1;
+  background-color: var(--background-color-dark);
+  border: thick double  var(--background-color-dark);
 }
 
 #navigation-menu .dropbutton {
