@@ -23,15 +23,21 @@
 </head>
 
 <body>
+  <!-- This is the skip to content button. It makes the website more accessible. -->
+  <!-- Explanation of why this is important: https://webaim.org/techniques/skipnav/ -->
   <div id="skip-to-content" data-include="/assets/html/skip_to_content.html"></div>
+
   <div id="header" data-include="assets/html/header.html"></div>
-  <div id="navigation-menu" data-include="assets/html/navigation_menu.html"></div>
+
   <div id="master">
-    <div id="menu"></div>
-    <div id="map"></div>
+    <!-- This is the filtering system of the web application. -->
+    <div id="navigation-menu" data-include="assets/html/navigation_menu.html"></div>
+    <div id="map">
+      <!-- This is the google maps map -->
+    </div>
     <div id="current-markers">
       <ul id="results-list">
-
+        <li style="list-style: none">NO RESULTS FOUND<br><br>CLICK UPDATE IN THE TOP NAVIGATION BAR TO LOAD RESULTS</li>
       </ul>
       <button id="reset-zoom-button">Reset Zoom</button>
       <div id="hide-results-button"></div>
@@ -40,8 +46,13 @@
   </div>
   <div data-include="assets/html/footer.html"></div>
 
+  <!-- This is the help dialog that shows whenever a "help" button is pressed. -->
   <div id="dialog" title="Help">
-    <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the &apos;x&apos; icon.</p>
+    <p>
+      To get started, use the navigation bar at the top of the page to select what attractions you would like to see; then click the update button.<br>
+      In the bottom left corner, there is a text list of all attractions that your selection returned.<br>
+      If you want to zoom in on an attraction double click the marker on the map that corresponds to the attraction you would like to see close up.
+    </p>
   </div>
 
   <script src="/assets/js/index.js"></script>
