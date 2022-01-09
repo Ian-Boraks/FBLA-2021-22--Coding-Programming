@@ -1,35 +1,36 @@
 <div id="footer">
-    <style scoped>
-        #footer {
-            font-family: "Lucida Console";
-            font-size: 1rem;
+  <style scoped>
+    #footer {
+      font-family: "Lucida Console";
+      font-size: 1rem;
 
-            height: 2rem;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: var(--background-color-light);
-            text-align: center;
-            z-index: 999;
-        }
+      height: 2rem;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: var(--background-color-light);
+      text-align: center;
+      z-index: 999;
+    }
 
-        #footer::before {
-            /* create a full-height inline block pseudo-element */
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-            /* vertical alignment of the inline element */
-            height: 100%;
-        }
+    #footer::before {
+      /* create a full-height inline block pseudo-element */
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      /* vertical alignment of the inline element */
+      height: 100%;
+    }
 
-        #footer .content {
-            display: inline-block;
-            vertical-align: middle;
-            /* vertical alignment of the inline element */
-        }
-    </style>
-    <div class="content">
-        &copy; Copyright 2022 | <a href="#" onclick="openDialogBox();">CLICK FOR HELP</a>
-    </div>
+    #footer .content {
+      display: inline-block;
+      vertical-align: middle;
+      /* vertical alignment of the inline element */
+    }
+  </style>
+  <div class="content">
+    &copy; Copyright 2022
+    <!-- | <a href="#" onclick="openDialogBox();">CLICK FOR HELP</a> -->
+  </div>
 </div>
