@@ -104,6 +104,8 @@ function find(
     // request['minPriceLevel'] = price;
   }
 
+  window.dispatchEvent(new Event("visible_changed"));
+
   // console.log(request);
   infoWindow = new google.maps.InfoWindow();
   places = new google.maps.places.PlacesService(map);
@@ -149,7 +151,7 @@ window.initMap = function () {
   });
 
   google.maps.event.addListener(map.getStreetView(), 'visible_changed', function () {
-    streetView = this.getVisible() ? 'open' : 'closed';
+    streetView = this.getVisible() ? true : false;
   });
 }
 
