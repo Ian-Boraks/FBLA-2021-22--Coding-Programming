@@ -85,9 +85,9 @@
     <div class="filter">
       <button onclick="toggleFunc(5);" class="dropbutton" tabindex="0">OPEN</button>
       <div id="myDropdown5" class="dropdown-content">
+        <a href="#" class="filter-option" onclick="updateNavigation('isOpen', null)">SHOW ALL</a>
         <a href="#" class="filter-option" onclick="updateNavigation('isOpen', true)">Open Now</a>
         <a href="#" class="filter-option" onclick="updateNavigation('isOpen', false)">Closed Now</a>
-        <a href="#" class="filter-option" onclick="updateNavigation('isOpen', null)">SHOW ALL</a>
       </div>
     </div>
 
@@ -95,7 +95,7 @@
       <div class="filter">
         <button onclick="toggleFunc(0);" class="dropbutton updatebutton" tabindex="0">UPDATE</button>
       </div>
-  
+
       <div class="filter">
         <button onclick="resetUpdateNavigation();" class="dropbutton updatebutton" tabindex="0">RESET</button>
       </div>

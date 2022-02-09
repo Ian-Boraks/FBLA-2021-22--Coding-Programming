@@ -150,6 +150,7 @@ window.initMap = function () {
     }
   });
 
+  // This statement is used to detect if the user is in 'Street View' mode.
   google.maps.event.addListener(map.getStreetView(), 'visible_changed', function () {
     streetView = this.getVisible() ? true : false;
   });
@@ -165,7 +166,7 @@ function updateResultsList() {
 
     current_marker = markersFinal[i];
 
-    /* If the current marker is visible within the bounds of the current map, let's add it as a list item to #nearby-results that's located above this script. */
+    /* If the current marker is visible within the bounds of the current map, let's add it as a list item. */
     if (bounds.contains(current_marker.getPosition())) {
 
       /* Only add a list item if it doesn't already exist. This is so that if the browser is resized or the tablet or phone is rotated, we don't have multiple results. */
