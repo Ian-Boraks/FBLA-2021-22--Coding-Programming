@@ -17,7 +17,7 @@ window.customUpdateNavigation = function () {
 // This function edits the navigationValues dict based on user input from the navigation menu
 window.updateNavigation = function (varName, value) {
   if (varName == 'price' && value != null) {
-    alert("WARNING\n\nUsing any option except 'show all'  will not show free to visit locations")
+    alert("WARNING\n\nUsing any option except 'show all' will NOT SHOW free to visit locations OR locations that have no price information.");
   }
   navigationValues[varName] = value;
   // console.log(navigationValues);

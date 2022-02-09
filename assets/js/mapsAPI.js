@@ -10,6 +10,7 @@ let bounds;
 
 let minRating = 0;
 
+let streetView = false;
 let zoomedIn = false;
 
 let markersFinal = [];
@@ -146,12 +147,20 @@ window.initMap = function () {
       zoomedIn = false;
     }
   });
+
+  google.maps.event.addListener(map.getStreetView(), 'visible_changed', function () {
+    streetView = this.getVisible() ? 'open' : 'closed';
+  });
 }
 
 function updateResultsList() {
   // Read the bounds of the map being displayed.
   bounds = map.getBounds();
   $('#results-list').empty();
+
+  if (streetView) {
+    alert("Street View is open. Please close it before searching.");
+  }
 
   // Iterate through all of the markers that are displayed on the *entire* map.
   for (let i = 0, l = markersFinal.length; i < l; i++) {
@@ -255,6 +264,9 @@ function createMarkers(places) {
     });
 
     google.maps.event.addListener(marker, 'dblclick', function () {
+      if (streetView) {
+        alert("Street View is open. Please close it before trying to zoom in on a marker.");
+      }
       // console.log('zoomIn');
       map.panTo(marker.getPosition());
       if (!zoomedIn) {
