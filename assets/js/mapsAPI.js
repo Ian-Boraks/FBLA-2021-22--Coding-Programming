@@ -158,10 +158,6 @@ function updateResultsList() {
   bounds = map.getBounds();
   $('#results-list').empty();
 
-  if (streetView) {
-    alert("Street View is open. Please close it before searching.");
-  }
-
   // Iterate through all of the markers that are displayed on the *entire* map.
   for (let i = 0, l = markersFinal.length; i < l; i++) {
 
@@ -205,6 +201,10 @@ function callback(results, status, pagination) {
     resetUpdateNavigation();
     return;
   } else {
+    if (streetView) {
+      alert("Street View is open. Please close it before searching.");
+      return;
+    }
     if (minRating > 0) {
       results = results.filter(function (el) {
         return el.rating >= minRating;
