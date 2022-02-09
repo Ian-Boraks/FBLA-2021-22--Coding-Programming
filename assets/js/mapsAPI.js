@@ -204,7 +204,7 @@ function callback(results, status, pagination) {
     return;
   } else {
     if (streetView) {
-      alert("Street View is open. Please close it before searching.");
+      alert("'Street View' is open. Please exit 'Street View' before searching.");
       return;
     }
     if (minRating > 0) {
@@ -267,7 +267,7 @@ function createMarkers(places) {
 
     google.maps.event.addListener(marker, 'dblclick', function () {
       if (streetView) {
-        alert("Street View is open. Please close it before trying to zoom in on a marker.");
+        alert("'Street View' is open. Please exit 'Street View' before trying to zoom in on a marker.");
       }
       // console.log('zoomIn');
       map.panTo(marker.getPosition());
