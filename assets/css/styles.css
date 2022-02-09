@@ -359,3 +359,13 @@ body {
 		height: calc(100% - 308px);
 	}
 }
+
+@font-face {
+	font-family: "BabelStone Shapes";
+	src: URL("/assets/BabelStoneShapes.ttf");
+}
+
+#myDropdown1 .filter-option {
+	font-family: "BabelStone Shapes";
+  font-size: .8em;
+}

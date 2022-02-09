@@ -15,7 +15,18 @@ let zoomedIn = false;
 let markersFinal = [];
 let resultsFinal = [];
 
-import { defaultMapStyle } from "./maps_style.js";
+let defaultMapStyle;
+
+// This function loads in the custom map style
+$.getJSON(
+  {
+    async: false,
+    url: '/assets/json/maps_style.json',
+    success: function (data) {
+      defaultMapStyle = data;
+    }
+  }
+)
 
 // no operation function
 function noop() { };
@@ -41,7 +52,7 @@ window.updateMap = function (
   price = null,
   ratingMin = 0,
   isOpen = null) {
-  console.log(types, keyword, radius, price, ratingMin, isOpen);
+  // console.log(types, keyword, radius, price, ratingMin, isOpen);
   toggleResultsFirstLoad();
   // This is setting the global variable to the value of the local variable.
   minRating = ratingMin;
@@ -57,7 +68,7 @@ function resetMapArrays() {
   resultsFinal.splice(0, resultsFinal.length);
 }
 window.resetMapZoom = function () {
-  console.log("reset");
+  // console.log("reset");
   map.panTo(ogCenter);
   map.setZoom(ogZoom);
   zoomedIn = false;
@@ -77,7 +88,7 @@ function find(
   radius = 20000,
   price = null,
   isOpen = null) {
-  // TODO: Make it so that the find() only works for a certain latLng range.
+  // TODO (Feature Request) - Make it so that the find() only works for a certain latLng range.
   var request = {
     types: types,
     keyword: keyword,
@@ -92,7 +103,7 @@ function find(
     // request['minPriceLevel'] = price;
   }
 
-  console.log(request);
+  // console.log(request);
   infoWindow = new google.maps.InfoWindow();
   places = new google.maps.places.PlacesService(map);
   places.nearbySearch(request, callback);
@@ -122,7 +133,7 @@ window.initMap = function () {
         title: 'Your Location'
       });
     }, function (error) {
-      console.log(error)
+      // console.log(error)
     });
   } else {
     alert('Geolocation is not supported/enabled by this browser.\n\nPlease use a browser that supports geolocation or enable geolocation.\nhttps://www.gps-coordinates.net/geolocation');
@@ -180,7 +191,7 @@ function setBounds() {
 
 function callback(results, status, pagination) {
   if (status !== 'OK') {
-    console.log(status);
+    // console.log(status);
     alert('Status: ' + status + '\n\nSearch options have been reset.\nPlease try a different search.');
     resetUpdateNavigation();
     return;
@@ -190,7 +201,7 @@ function callback(results, status, pagination) {
         return el.rating >= minRating;
       });
     }
-    console.log(results);
+    // console.log(results);
     createMarkers(results);
     resultsFinal = resultsFinal.concat(results);
     if (pagination && pagination.hasNextPage) {
@@ -244,7 +255,7 @@ function createMarkers(places) {
     });
 
     google.maps.event.addListener(marker, 'dblclick', function () {
-      console.log('zoomIn');
+      // console.log('zoomIn');
       map.panTo(marker.getPosition());
       if (!zoomedIn) {
         map.setZoom(17);
